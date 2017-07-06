@@ -43,13 +43,102 @@ function renderCameraDetails (camera) {
   `;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+//                             ACCIDENTS                                    //
+//////////////////////////////////////////////////////////////////////////////
+function getAccidents () {
+  const headers = new Headers({
+    'Authorization':`Apikey ${API_KEY}`
+  });
+  return fetch(`${BASE_URL}/accidents`, {headers})
+    .then(res => res.json());
+}
+
+function getAccident (id) {
+  const headers = new Headers({
+    'Authorization':`Apikey ${API_KEY}`
+  });
+  return fetch(`${BASE_URL}/accidents/${id}`, {headers})
+    .then(res => res.json());
+}
+
+function renderAccidentSummary (accident) {
+  return `
+    <div class="accident-summary">
+      <a href class="accident-link" data-id="${accident.id}">
+        ${accident.latitude}
+        ${accident.longitude}
+      </a>
+    </div>
+  `;
+}
+
+function renderAccidentList (accidents) {
+  return accidents.map(renderAccidentSummary).join('');
+}
+
+function renderAccidentDetails (accident) {
+  return `
+    <a href class="back-button">Back</a>
+    <h1>${accident.latitude}</h1>
+    <h1>${accident.longitude}</h1>
+  `;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//                             ACCIDENTS                                    //
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+//                    CRIMES                                                //
+//////////////////////////////////////////////////////////////////////////////
+function getCrimes () {
+  const headers = new Headers({
+    'Authorization':`Apikey ${API_KEY}`
+  });
+  return fetch(`${BASE_URL}/crimes`, {headers})
+    .then(res => res.json());
+}
+
+function getCrime (id) {
+  const headers = new Headers({
+    'Authorization':`Apikey ${API_KEY}`
+  });
+  return fetch(`${BASE_URL}/crimes/${id}`, {headers})
+    .then(res => res.json());
+}
+
+function renderCrimeSummary (crime) {
+  return `
+    <div class="crime-summary">
+      <a href class="crime-link" data-id="${crime.id}">
+        ${crime.latitude}
+        ${crime.longitude}
+      </a>
+    </div>
+  `;
+}
+
+function renderCrimeList (crimes) {
+  return crimes.map(renderCrimeSummary).join('');
+}
+
+function renderCrimeDetails (crime) {
+  return `
+    <a href class="back-button">Back</a>
+    <h1>${crime.latitude}</h1>
+    <h1>${crime.longitude}</h1>
+  `;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//                    CRIMES                                                //
+//////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', () => {
   const cameraList = document.querySelector('#cameras-list');
   const cameraDetails = document.querySelector('#camera-details');
   const cameraForm = document.querySelector('#camera-form');
   // NAV BAR ELEMENTS
-  const navCameraIndex = document.querySelector('#nav-camera-index');
-  const navCameraNew= document.querySelector('#nav-camera-new');
 
   function showCamera (id) {
     return getCamera(id)
@@ -77,15 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   reloadCameras();
 
-  cameraForm.addEventListener('submit', event => {
-    const { currentTarget } = event;
-    event.preventDefault();
-
-    postCamera(new FormData(currentTarget))
-      .then(({id}) => {
-        showCamera(id);
-      });
-  })
 
   cameraList.addEventListener('click', event => {
     const {target} = event;
@@ -101,14 +181,105 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  cameraDetails.addEventListener('click', event => {
+  //////////////////////////////////////////////////////////////////////////////
+  //                             ACCIDENTS                                    //
+  //////////////////////////////////////////////////////////////////////////////
+  const accidentList = document.querySelector('#accidents-list');
+  const accidentDetails = document.querySelector('#accident-details');
+  const accidentForm = document.querySelector('#accident-form');
+  // NAV BAR ELEMENTS
+
+  function showAccident (id) {
+    return getAccident(id)
+      .then(accident => {
+        accidentList.classList.add('hidden');
+        accidentDetails.innerHTML = renderAccidentDetails(accident);
+        accidentDetails.classList.remove('hidden');
+        accidentForm.classList.add('hidden');
+
+      });
+  }
+
+  function indexAccident () {
+    accidentList.classList.remove('hidden');
+    accidentDetails.classList.add('hidden');
+    accidentForm.classList.add('hidden');
+
+  }
+
+  function reloadAccidents () {
+    return getAccidents().then(accidents => {
+      window.accidentList = accidents;
+      accidentList.innerHTML = renderAccidentList(accidents);
+    })
+  }
+  reloadAccidents();
+
+
+  accidentList.addEventListener('click', event => {
     const {target} = event;
-    if (target.matches('a.delete-button')) {
+    if (target.matches('a.accident-link')) {
       event.preventDefault();
       const id = target.getAttribute('data-id');
-      deleteCamera(id)
-        .then(() => reloadCameras())
-        .then(() => indexCamera());
+      showAccident(id);
+    }
+
+    if (target.matches('a.back-button')) {
+      event.preventDefault();
+      indexAccident();
     }
   });
+  //////////////////////////////////////////////////////////////////////////////
+  //                             ACCIDENTS                                    //
+  //////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//                    CRIMES                                                //
+//////////////////////////////////////////////////////////////////////////////
+  const crimeList = document.querySelector('#crimes-list');
+  const crimeDetails = document.querySelector('#crime-details');
+  const crimeForm = document.querySelector('#crime-form');
+
+  function showCrime (id) {
+    return getCrime(id)
+      .then(crime => {
+        crimeList.classList.add('hidden');
+        crimeDetails.innerHTML = renderCrimeDetails(crime);
+        crimeDetails.classList.remove('hidden');
+        crimeForm.classList.add('hidden');
+
+      });
+  }
+
+  function indexCrime () {
+    crimeList.classList.remove('hidden');
+    crimeDetails.classList.add('hidden');
+    crimeForm.classList.add('hidden');
+
+  }
+
+  function reloadCrimes () {
+    return getCrimes().then(crimes => {
+      window.crimeList = crimes;
+      crimeList.innerHTML = renderCrimeList(crimes);
+    })
+  }
+  reloadCrimes();
+
+
+  crimeList.addEventListener('click', event => {
+    const {target} = event;
+    if (target.matches('a.crime-link')) {
+      event.preventDefault();
+      const id = target.getAttribute('data-id');
+      showCrime(id);
+    }
+
+    if (target.matches('a.back-button')) {
+      event.preventDefault();
+      indexCrime();
+    }
+  });
+  //////////////////////////////////////////////////////////////////////////////
+  //                    CRIMES                                                //
+  //////////////////////////////////////////////////////////////////////////////
 });

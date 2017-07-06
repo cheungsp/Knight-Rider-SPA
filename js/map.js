@@ -152,7 +152,8 @@ let zoom = {
   }
 
 $(document).ready(function(){
-   $('#red-light-camera').click(function(){
+    // Red light camera show button
+   $('#red-light-camera-button').click(function(){
      let hold = window.testList;
      for(var x = 0; x < hold.length; x++){
        let single = hold[x]
@@ -163,4 +164,69 @@ $(document).ready(function(){
        addMarker(single);
      }
    });
+
+   // Accident show button
+   $('#accident-button').click(function(){
+    //  let hold = window.testList;
+    // console.log(window.accidentList[0]);
+    let hold = window.accidentList;
+    for(var x = 0; x < hold.length; x++){
+      let single = hold[x]
+      single['iconImage'] = 'images/accident.png';
+      single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
+      single['coords']['lat'] = parseFloat(single['coords']['lat']);
+      single['coords']['lng'] = parseFloat(single['coords']['lng']);
+      addMarker(single);
+    }
+   });
+
+   // Crime show button
+   $('#crime-button').click(function(){
+    //  let hold = window.testList;
+    // console.log(window.accidentList[0]);
+    let hold = window.crimeList;
+    for(var x = 0; x < hold.length; x++){
+      let single = hold[x]
+      single['iconImage'] = 'images/thief.png';
+      single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
+      single['coords']['lat'] = parseFloat(single['coords']['lat']);
+      single['coords']['lng'] = parseFloat(single['coords']['lng']);
+      addMarker(single);
+    }
+   });
  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

@@ -73,8 +73,13 @@
             <br>
             <input type="checkbox" name="vehicle" value="Dov"> Red Light Cameras
           </form>
-          <input id="pac-input" class="controls" type="text" placeholder="Search Box"><br>
-          <input id="red-light-camera" type="button" value="Red Light Cameras" /><br>
+          <hr>
+
+          <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"><br> -->
+          <input id="red-light-camera-button" type="button" value="Red Light Cameras" /><br>
+          <input id="accident-button" type="button" value="Accidents" /><br>
+          <input id="crime-button" type="button" value="Crimes" /><br>
+          <hr>
           <input onclick="clearMarkers();" type=button value="Hide Markers"><br>
           <input onclick="showMarkers();" type=button value="Show All Markers"><br>
           <input onclick="deleteMarkers();" type=button value="Delete Markers"><br>
@@ -91,24 +96,27 @@
           <div id="map"></div>
         </div>
       </div>
+
+    <div class="row api-list">
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <h1>Cameras</h1>
+        <div id="camera-details" class="hidden"></div>
+        <div id="cameras-list"></div>
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <h1>Accidents</h1>
+        <div id="accident-details" class="hidden"></div>
+        <div id="accidents-list"></div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <h1>Crimes</h1>
+        <div id="crime-details" class="hidden"></div>
+        <div id="crimes-list"></div>
+      </div>
     </div>
+  </div>
 
-    <h1>Cameras</h1>
 
-    <form id="camera-form" class="hidden">
-      <div>
-        <label for="latitude">latitude: </title>
-        <input id="latitude" name="camera[latitude]" />
-      </div>
-      <div>
-        <label for="longitude">longitude: </title>
-        <input id="longitude" name="camera[longitude]" />
-      </div>
-      <input type="submit" name="" value="Submit" />
-    </form>
-
-    <div id="camera-details" class="hidden"></div>
-    <div id="cameras-list"></div>
 
     <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv4NtDTdhX6O4lXj3uNW21Y6CIRPE9x5w&libraries=geometry,places&callback=initMap">
