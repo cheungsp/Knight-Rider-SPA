@@ -1,17 +1,6 @@
 const BASE_URL = 'http://localhost:3000/api/v1';
 const API_KEY = "817e0e0bccabab98ea6f0db856c2a71bfbcd112a8b0db0d5c14d00c09b33f4d9"
 
-function deleteCamera (id) {
-  const headers = new Headers({
-    'Authorization':`Apikey ${API_KEY}`
-  });
-  return fetch(`${BASE_URL}/cameras/${id}`, {
-    method: 'DELETE',
-    headers
-  })
-    .then(res => res.json());
-}
-
 function getCameras () {
   const headers = new Headers({
     'Authorization':`Apikey ${API_KEY}`
@@ -122,22 +111,4 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(() => indexCamera());
     }
   });
-
-  // navCameraIndex.addEventListener('click', event => {
-  //   event.preventDefault();
-  //   indexCamera();
-  // });
-  //
-//   navCameraNew.addEventListener('click', event => {
-//     event.preventDefault();
-//     newCamera();
-//   });
 });
-
-// $( document ).ready(function() {
-//   var results = "";
-//   $.get("http://localhost:3000/api/v1/cameras",function(data){
-//   results = JSON.parse(data);
-// });
-// console.log(results);
-// });
