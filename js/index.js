@@ -123,14 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  navCameraIndex.addEventListener('click', event => {
-    event.preventDefault();
-    indexCamera();
-  });
-  navCameraNew.addEventListener('click', event => {
-    event.preventDefault();
-    newCamera();
-  });
+  // navCameraIndex.addEventListener('click', event => {
+  //   event.preventDefault();
+  //   indexCamera();
+  // });
+  //
+//   navCameraNew.addEventListener('click', event => {
+//     event.preventDefault();
+//     newCamera();
+//   });
 });
 
 // $( document ).ready(function() {
