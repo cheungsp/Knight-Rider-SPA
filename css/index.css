@@ -1,0 +1,22 @@
+html {
+  font-family: Helvetica, sans-serif;
+  font-weight: 100;
+}
+
+* {
+  font-family: inherit;
+  font-weight: 100;
+}
+.hidden {
+  display: none;
+}
+
+.camera-summary {
+  margin-bottom: 20px;
+}
+
+#map {
+ height: 500px;
+ margin-bottom: 10px;
+ width: 100%;
+}
