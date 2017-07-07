@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //////////////////////////////////////////////////////////////////////////////
   const crimeList = document.querySelector('#crimes-list');
   const crimeDetails = document.querySelector('#crime-details');
-  const crimeForm = document.querySelector('#crime-form');
+  // const crimeForm = document.querySelector('#crime-form');
 
   function showCrime (id) {
     return getCrime(id)
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         crimeList.classList.add('hidden');
         crimeDetails.innerHTML = renderCrimeDetails(crime);
         crimeDetails.classList.remove('hidden');
-        crimeForm.classList.add('hidden');
+        // crimeForm.classList.add('hidden');
 
       });
   }
@@ -253,14 +253,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function indexCrime () {
     crimeList.classList.remove('hidden');
     crimeDetails.classList.add('hidden');
-    crimeForm.classList.add('hidden');
+    // crimeForm.classList.add('hidden');
 
   }
 
   function reloadCrimes () {
     return getCrimes().then(crimes => {
       window.crimeList = crimes;
-      crimeList.innerHTML = renderCrimeList(crimes);
+      // crimeList.innerHTML = renderCrimeList(crimes);
     })
   }
   reloadCrimes();

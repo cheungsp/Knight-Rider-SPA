@@ -60,6 +60,182 @@ var timeLabels = svg.selectAll(".timeLabel")
 //   {day: 1, hour: 5, value: 90},
 //   {day: 1, hour: 6, value: 37}
 // ];
+var myArrayOfObjects = [
+  {day: 1, hour: 1, value: 0},
+  {day: 1, hour: 2, value: 0},
+  {day: 1, hour: 3, value: 0},
+  {day: 1, hour: 4, value: 0},
+  {day: 1, hour: 5, value: 0},
+  {day: 1, hour: 6, value: 0},
+  {day: 1, hour: 7, value: 0},
+  {day: 1, hour: 8, value: 0},
+  {day: 1, hour: 9, value: 0},
+  {day: 1, hour: 10, value: 0},
+  {day: 1, hour: 11, value: 0},
+  {day: 1, hour: 12, value: 0},
+  {day: 1, hour: 13, value: 0},
+  {day: 1, hour: 14, value: 0},
+  {day: 1, hour: 15, value: 0},
+  {day: 1, hour: 16, value: 0},
+  {day: 1, hour: 17, value: 0},
+  {day: 1, hour: 18, value: 0},
+  {day: 1, hour: 19, value: 0},
+  {day: 1, hour: 20, value: 0},
+  {day: 1, hour: 21, value: 0},
+  {day: 1, hour: 22, value: 0},
+  {day: 1, hour: 23, value: 0},
+  {day: 1, hour: 24, value: 0},
+  /////////////////////////
+  {day: 2, hour: 1, value: 0},
+  {day: 2, hour: 2, value: 0},
+  {day: 2, hour: 3, value: 0},
+  {day: 2, hour: 4, value: 0},
+  {day: 2, hour: 5, value: 0},
+  {day: 2, hour: 6, value: 0},
+  {day: 2, hour: 7, value: 0},
+  {day: 2, hour: 8, value: 0},
+  {day: 2, hour: 9, value: 0},
+  {day: 2, hour: 10, value: 0},
+  {day: 2, hour: 11, value: 0},
+  {day: 2, hour: 12, value: 0},
+  {day: 2, hour: 13, value: 0},
+  {day: 2, hour: 14, value: 0},
+  {day: 2, hour: 15, value: 0},
+  {day: 2, hour: 16, value: 0},
+  {day: 2, hour: 17, value: 0},
+  {day: 2, hour: 18, value: 0},
+  {day: 2, hour: 19, value: 0},
+  {day: 2, hour: 20, value: 0},
+  {day: 2, hour: 21, value: 0},
+  {day: 2, hour: 22, value: 0},
+  {day: 2, hour: 23, value: 0},
+  {day: 2, hour: 24, value: 0},
+  //
+  {day: 3, hour: 1, value: 0},
+  {day: 3, hour: 2, value: 0},
+  {day: 3, hour: 3, value: 0},
+  {day: 3, hour: 4, value: 0},
+  {day: 3, hour: 5, value: 0},
+  {day: 3, hour: 6, value: 0},
+  {day: 3, hour: 7, value: 0},
+  {day: 3, hour: 8, value: 0},
+  {day: 3, hour: 9, value: 0},
+  {day: 3, hour: 10, value: 0},
+  {day: 3, hour: 11, value: 0},
+  {day: 3, hour: 12, value: 0},
+  {day: 3, hour: 13, value: 0},
+  {day: 3, hour: 14, value: 0},
+  {day: 3, hour: 15, value: 0},
+  {day: 3, hour: 16, value: 0},
+  {day: 3, hour: 17, value: 0},
+  {day: 3, hour: 18, value: 0},
+  {day: 3, hour: 19, value: 0},
+  {day: 3, hour: 20, value: 0},
+  {day: 3, hour: 21, value: 0},
+  {day: 3, hour: 22, value: 0},
+  {day: 3, hour: 23, value: 0},
+  {day: 3, hour: 24, value: 0},
+  //
+  {day: 4, hour: 1, value: 0},
+  {day: 4, hour: 2, value: 0},
+  {day: 4, hour: 3, value: 0},
+  {day: 4, hour: 4, value: 0},
+  {day: 4, hour: 5, value: 0},
+  {day: 4, hour: 6, value: 0},
+  {day: 4, hour: 7, value: 0},
+  {day: 4, hour: 8, value: 0},
+  {day: 4, hour: 9, value: 0},
+  {day: 4, hour: 10, value: 0},
+  {day: 4, hour: 11, value: 0},
+  {day: 4, hour: 12, value: 0},
+  {day: 4, hour: 13, value: 0},
+  {day: 4, hour: 14, value: 0},
+  {day: 4, hour: 15, value: 0},
+  {day: 4, hour: 16, value: 0},
+  {day: 4, hour: 17, value: 0},
+  {day: 4, hour: 18, value: 0},
+  {day: 4, hour: 19, value: 0},
+  {day: 4, hour: 20, value: 0},
+  {day: 4, hour: 21, value: 0},
+  {day: 4, hour: 22, value: 0},
+  {day: 4, hour: 23, value: 0},
+  {day: 4, hour: 24, value: 0},
+  //
+  {day: 5, hour: 1, value: 0},
+  {day: 5, hour: 2, value: 0},
+  {day: 5, hour: 3, value: 0},
+  {day: 5, hour: 4, value: 0},
+  {day: 5, hour: 5, value: 0},
+  {day: 5, hour: 6, value: 0},
+  {day: 5, hour: 7, value: 0},
+  {day: 5, hour: 8, value: 0},
+  {day: 5, hour: 9, value: 0},
+  {day: 5, hour: 10, value: 0},
+  {day: 5, hour: 11, value: 0},
+  {day: 5, hour: 12, value: 0},
+  {day: 5, hour: 13, value: 0},
+  {day: 5, hour: 14, value: 0},
+  {day: 5, hour: 15, value: 0},
+  {day: 5, hour: 16, value: 0},
+  {day: 5, hour: 17, value: 0},
+  {day: 5, hour: 18, value: 0},
+  {day: 5, hour: 19, value: 0},
+  {day: 5, hour: 20, value: 0},
+  {day: 5, hour: 21, value: 0},
+  {day: 5, hour: 22, value: 0},
+  {day: 5, hour: 23, value: 0},
+  {day: 5, hour: 24, value: 0},
+  //
+  {day: 6, hour: 1, value: 0},
+  {day: 6, hour: 2, value: 0},
+  {day: 6, hour: 3, value: 0},
+  {day: 6, hour: 4, value: 0},
+  {day: 6, hour: 5, value: 0},
+  {day: 6, hour: 6, value: 0},
+  {day: 6, hour: 7, value: 0},
+  {day: 6, hour: 8, value: 0},
+  {day: 6, hour: 9, value: 0},
+  {day: 6, hour: 10, value: 0},
+  {day: 6, hour: 11, value: 0},
+  {day: 6, hour: 12, value: 0},
+  {day: 6, hour: 13, value: 0},
+  {day: 6, hour: 14, value: 0},
+  {day: 6, hour: 15, value: 0},
+  {day: 6, hour: 16, value: 0},
+  {day: 6, hour: 17, value: 0},
+  {day: 6, hour: 18, value: 0},
+  {day: 6, hour: 19, value: 0},
+  {day: 6, hour: 20, value: 0},
+  {day: 6, hour: 21, value: 0},
+  {day: 6, hour: 22, value: 0},
+  {day: 6, hour: 23, value: 0},
+  {day: 6, hour: 24, value: 0},
+  //
+  {day: 7, hour: 1, value: 0},
+  {day: 7, hour: 2, value: 0},
+  {day: 7, hour: 3, value: 0},
+  {day: 7, hour: 4, value: 0},
+  {day: 7, hour: 5, value: 0},
+  {day: 7, hour: 6, value: 0},
+  {day: 7, hour: 7, value: 0},
+  {day: 7, hour: 8, value: 0},
+  {day: 7, hour: 9, value: 0},
+  {day: 7, hour: 10, value: 0},
+  {day: 7, hour: 11, value: 0},
+  {day: 7, hour: 12, value: 0},
+  {day: 7, hour: 13, value: 0},
+  {day: 7, hour: 14, value: 0},
+  {day: 7, hour: 15, value: 0},
+  {day: 7, hour: 16, value: 0},
+  {day: 7, hour: 17, value: 0},
+  {day: 7, hour: 18, value: 0},
+  {day: 7, hour: 19, value: 0},
+  {day: 7, hour: 20, value: 0},
+  {day: 7, hour: 21, value: 0},
+  {day: 7, hour: 22, value: 0},
+  {day: 7, hour: 23, value: 0},
+  {day: 7, hour: 24, value: 0},
+];
 
 
 var heatmapChart = function(data) {
@@ -132,7 +308,7 @@ legend.exit().remove();
   };
 
 // heatmapChart(datasets[0]);
-heatmapChart(myArrayOfObjects);
+// heatmapChart(myArrayOfObjects);
 
  var datasetpicker = d3.select("#dataset-picker").selectAll(".dataset-button")
    .data(datasets);
@@ -146,13 +322,41 @@ heatmapChart(myArrayOfObjects);
      heatmapChart(d);
    });
 
+   setTimeout(function () {
+   let b = window.crimeList
+   let c,day,count;
+   for (let i = 0; i<b.length; i++){
+       c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
+       day = (moment(c).day())+1;
+       b[i]['dayofweek'] = day;
+       b[i]['hour'] = (b[i]['hour'] + 1)
+   }
+
+   for (let i = 1; i<8; i++){
+       for(let x = 1; x < 25; x++){
+           result = (_.where(b, {dayofweek: i, hour:x})).length;
+   		if(i != 1){
+   			count = (((i-1)*24) + (x-1));
+           }
+   		else{
+   			count = (x-1);
+           }
+   	myArrayOfObjects[count]['value'] = result;
+    }
+   }
+heatmapChart(myArrayOfObjects);
+}, 10000);
 
 
   /*
+let hold = window.crimeList.splice(1,10);
 
 let c = `${b.year}-${b.month}-${b.day}`
-moment(`${c}`).day()
+moment(c).day()
+(moment(c).day())+
 
+c = `${b[0]['year']}-${b[0]['month']}-${b[0]['day']}`;
+(moment(c).day())+1
 
 var result = myArrayOfObjects.filter(function( obj ) {
   return (obj.day === 1 && obj.hour === 2);
@@ -160,182 +364,52 @@ var result = myArrayOfObjects.filter(function( obj ) {
 result[0]['value']++
 
 
+for(let i = 0; i<hold.length; i++){
+  result = myArrayOfObjects.filter(function( obj ) {
+  return (obj.day === date && obj.hour === hold[i]['hour']);
+});
+}
+
+
+let b = window.crimeList
+b = b.splice(1,10)
+let c,day,count;
+for (let i = 0; i<b.length; i++){
+    c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
+    day = (moment(c).day())+1;
+    b[i]['dayofweek'] = day;
+    b[i]['hour'] = (b[i]['hour'] + 1)
+}
+
+result = (_.where(b, {dayofweek: 6, hour:0})).length
+
+count = (((day-1)*24) + (hour-1));
+
+for (let i = 0; i<7; i++){
+    for(let x = 0; x < 24; x++){
+        result = (_.where(b, {dayofweek: i, hour:x})).length
+        console.log(`day: ${i}, hour:${x} -> result:${result}`);
+    }
+}
+
+for (let i = 1; i<8; i++){
+    for(let x = 1; x < 25; x++){
+        result = (_.where(b, {dayofweek: i, hour:x})).length;
+		if(i != 1){
+			count = (((i-1)*24) + (x-1));
+        }
+		else{
+			count = (x-1);
+        }
+	myArrayOfObjects[count]['value'] = result;
+}
+}
+
+
+
+
+}
+
+
+
   */
-
-
-  var myArrayOfObjects = [
-    {day: 1, hour: 1, value: 0},
-    {day: 1, hour: 2, value: 0},
-    {day: 1, hour: 3, value: 0},
-    {day: 1, hour: 4, value: 0},
-    {day: 1, hour: 5, value: 0},
-    {day: 1, hour: 6, value: 0},
-    {day: 1, hour: 7, value: 0},
-    {day: 1, hour: 8, value: 0},
-    {day: 1, hour: 9, value: 0},
-    {day: 1, hour: 10, value: 0},
-    {day: 1, hour: 11, value: 0},
-    {day: 1, hour: 12, value: 0},
-    {day: 1, hour: 13, value: 0},
-    {day: 1, hour: 14, value: 0},
-    {day: 1, hour: 15, value: 0},
-    {day: 1, hour: 16, value: 0},
-    {day: 1, hour: 17, value: 0},
-    {day: 1, hour: 18, value: 0},
-    {day: 1, hour: 19, value: 0},
-    {day: 1, hour: 20, value: 0},
-    {day: 1, hour: 21, value: 0},
-    {day: 1, hour: 22, value: 0},
-    {day: 1, hour: 23, value: 0},
-    {day: 1, hour: 24, value: 0},
-    /////////////////////////
-    {day: 2, hour: 1, value: 0},
-    {day: 2, hour: 2, value: 0},
-    {day: 2, hour: 3, value: 0},
-    {day: 2, hour: 4, value: 0},
-    {day: 2, hour: 5, value: 0},
-    {day: 2, hour: 6, value: 0},
-    {day: 2, hour: 7, value: 0},
-    {day: 2, hour: 8, value: 0},
-    {day: 2, hour: 9, value: 0},
-    {day: 2, hour: 10, value: 0},
-    {day: 2, hour: 11, value: 0},
-    {day: 2, hour: 12, value: 0},
-    {day: 2, hour: 13, value: 0},
-    {day: 2, hour: 14, value: 0},
-    {day: 2, hour: 15, value: 0},
-    {day: 2, hour: 16, value: 0},
-    {day: 2, hour: 17, value: 0},
-    {day: 2, hour: 18, value: 0},
-    {day: 2, hour: 19, value: 0},
-    {day: 2, hour: 20, value: 0},
-    {day: 2, hour: 21, value: 0},
-    {day: 2, hour: 22, value: 0},
-    {day: 2, hour: 23, value: 0},
-    {day: 2, hour: 24, value: 0},
-    //
-    {day: 3, hour: 1, value: 0},
-    {day: 3, hour: 2, value: 0},
-    {day: 3, hour: 3, value: 0},
-    {day: 3, hour: 4, value: 0},
-    {day: 3, hour: 5, value: 0},
-    {day: 3, hour: 6, value: 0},
-    {day: 3, hour: 7, value: 0},
-    {day: 3, hour: 8, value: 0},
-    {day: 3, hour: 9, value: 0},
-    {day: 3, hour: 10, value: 0},
-    {day: 3, hour: 11, value: 0},
-    {day: 3, hour: 12, value: 0},
-    {day: 3, hour: 13, value: 0},
-    {day: 3, hour: 14, value: 0},
-    {day: 3, hour: 15, value: 0},
-    {day: 3, hour: 16, value: 0},
-    {day: 3, hour: 17, value: 0},
-    {day: 3, hour: 18, value: 0},
-    {day: 3, hour: 19, value: 0},
-    {day: 3, hour: 20, value: 0},
-    {day: 3, hour: 21, value: 0},
-    {day: 3, hour: 22, value: 0},
-    {day: 3, hour: 23, value: 0},
-    {day: 3, hour: 24, value: 0},
-    //
-    {day: 4, hour: 1, value: 0},
-    {day: 4, hour: 2, value: 0},
-    {day: 4, hour: 3, value: 0},
-    {day: 4, hour: 4, value: 0},
-    {day: 4, hour: 5, value: 0},
-    {day: 4, hour: 6, value: 0},
-    {day: 4, hour: 7, value: 0},
-    {day: 4, hour: 8, value: 0},
-    {day: 4, hour: 9, value: 0},
-    {day: 4, hour: 10, value: 0},
-    {day: 4, hour: 11, value: 0},
-    {day: 4, hour: 12, value: 0},
-    {day: 4, hour: 13, value: 0},
-    {day: 4, hour: 14, value: 0},
-    {day: 4, hour: 15, value: 0},
-    {day: 4, hour: 16, value: 0},
-    {day: 4, hour: 17, value: 0},
-    {day: 4, hour: 18, value: 0},
-    {day: 4, hour: 19, value: 0},
-    {day: 4, hour: 20, value: 0},
-    {day: 4, hour: 21, value: 0},
-    {day: 4, hour: 22, value: 0},
-    {day: 4, hour: 23, value: 0},
-    {day: 4, hour: 24, value: 0},
-    //
-    {day: 5, hour: 1, value: 0},
-    {day: 5, hour: 2, value: 0},
-    {day: 5, hour: 3, value: 0},
-    {day: 5, hour: 4, value: 0},
-    {day: 5, hour: 5, value: 0},
-    {day: 5, hour: 6, value: 0},
-    {day: 5, hour: 7, value: 0},
-    {day: 5, hour: 8, value: 0},
-    {day: 5, hour: 9, value: 0},
-    {day: 5, hour: 10, value: 0},
-    {day: 5, hour: 11, value: 0},
-    {day: 5, hour: 12, value: 0},
-    {day: 5, hour: 13, value: 0},
-    {day: 5, hour: 14, value: 0},
-    {day: 5, hour: 15, value: 0},
-    {day: 5, hour: 16, value: 0},
-    {day: 5, hour: 17, value: 0},
-    {day: 5, hour: 18, value: 0},
-    {day: 5, hour: 19, value: 0},
-    {day: 5, hour: 20, value: 0},
-    {day: 5, hour: 21, value: 0},
-    {day: 5, hour: 22, value: 0},
-    {day: 5, hour: 23, value: 0},
-    {day: 5, hour: 24, value: 0},
-    //
-    {day: 6, hour: 1, value: 0},
-    {day: 6, hour: 2, value: 0},
-    {day: 6, hour: 3, value: 0},
-    {day: 6, hour: 4, value: 0},
-    {day: 6, hour: 5, value: 0},
-    {day: 6, hour: 6, value: 0},
-    {day: 6, hour: 7, value: 0},
-    {day: 6, hour: 8, value: 0},
-    {day: 6, hour: 9, value: 0},
-    {day: 6, hour: 10, value: 0},
-    {day: 6, hour: 11, value: 0},
-    {day: 6, hour: 12, value: 0},
-    {day: 6, hour: 13, value: 0},
-    {day: 6, hour: 14, value: 0},
-    {day: 6, hour: 15, value: 0},
-    {day: 6, hour: 16, value: 0},
-    {day: 6, hour: 17, value: 0},
-    {day: 6, hour: 18, value: 0},
-    {day: 6, hour: 19, value: 0},
-    {day: 6, hour: 20, value: 0},
-    {day: 6, hour: 21, value: 0},
-    {day: 6, hour: 22, value: 0},
-    {day: 6, hour: 23, value: 0},
-    {day: 6, hour: 24, value: 0},
-    //
-    {day: 7, hour: 1, value: 0},
-    {day: 7, hour: 2, value: 0},
-    {day: 7, hour: 3, value: 0},
-    {day: 7, hour: 4, value: 0},
-    {day: 7, hour: 5, value: 0},
-    {day: 7, hour: 6, value: 0},
-    {day: 7, hour: 7, value: 0},
-    {day: 7, hour: 8, value: 0},
-    {day: 7, hour: 9, value: 0},
-    {day: 7, hour: 10, value: 0},
-    {day: 7, hour: 11, value: 0},
-    {day: 7, hour: 12, value: 0},
-    {day: 7, hour: 13, value: 0},
-    {day: 7, hour: 14, value: 0},
-    {day: 7, hour: 15, value: 0},
-    {day: 7, hour: 16, value: 0},
-    {day: 7, hour: 17, value: 0},
-    {day: 7, hour: 18, value: 0},
-    {day: 7, hour: 19, value: 0},
-    {day: 7, hour: 20, value: 0},
-    {day: 7, hour: 21, value: 0},
-    {day: 7, hour: 22, value: 0},
-    {day: 7, hour: 23, value: 0},
-    {day: 7, hour: 24, value: 0},
-  ];
