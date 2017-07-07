@@ -18,6 +18,7 @@ function initMap() {
 
   new AutocompleteDirectionsHandler(map);
 
+
 }
 
 // Adds a marker to the map and push to the array.
@@ -41,6 +42,10 @@ function addMarker(props){
      })
    }
   markers.push(marker);
+
+  // var markerCluster = new MarkerClusterer(map, markers,
+  //             {imagePath: 'images/m'});
+  
 }
 
 // Sets the map on all markers in the array.
@@ -161,6 +166,7 @@ $(document).ready(function(){
        single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
        single['coords']['lat'] = parseFloat(single['coords']['lat']);
        single['coords']['lng'] = parseFloat(single['coords']['lng']);
+       single['content'] = '<h4>Red Light Camera</h4>';
        addMarker(single);
      }
    });
@@ -176,15 +182,33 @@ $(document).ready(function(){
       single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
       single['coords']['lat'] = parseFloat(single['coords']['lat']);
       single['coords']['lng'] = parseFloat(single['coords']['lng']);
+      single['content'] = `Crash Count: ${single.crash_count} | Type:${single.crash_type}`;
       addMarker(single);
     }
    });
 
    // Crime show button
    $('#crime-button').click(function(){
-    //  let hold = window.testList;
-    // console.log(window.accidentList[0]);
-    let hold = window.crimeList;
+    let hold = [];
+    if ($("input:checkbox[name='Tov']").is(':checked')) {
+      let a = window.crimeList.filter(function (el) {
+        return el.type_crime === "Theft of Vehicle"
+      });
+      for (let i = 0; i < a.length; i++){
+        hold.push(a[i])
+      }
+    }
+    if ($("input:checkbox[name='Tfv']").is(':checked')) {
+      let a = window.crimeList.filter(function (el) {
+        return el.type_crime === "Theft from Vehicle"
+      });
+      for (let i = 0; i < a.length; i++){
+        hold.push(a[i])
+      }
+    }
+    else {
+      hold = window.crimeList;
+    }
     for(var x = 0; x < hold.length; x++){
       let single = hold[x]
       single['iconImage'] = 'images/thief.png';
