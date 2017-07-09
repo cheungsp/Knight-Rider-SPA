@@ -6,7 +6,7 @@ var margin = { top: 50, right: 0, bottom: 100, left: 30 },
   buckets = 9,
   colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
   days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-  times = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p", "12p"];
+  times = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12p", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p", "12p"];
   // datasets = ["data.tsv", "data2.tsv"];
   datasets = ["data.tsv"];
   // datasets = 'file:///Users/Spencer/codecore/final%20project/mapSPA/data.tsv';
@@ -322,30 +322,112 @@ legend.exit().remove();
      heatmapChart(d);
    });
 
-   setTimeout(function () {
-   let b = window.crimeList
-   let c,day,count;
-   for (let i = 0; i<b.length; i++){
-       c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
-       day = (moment(c).day())+1;
-       b[i]['dayofweek'] = day;
-       b[i]['hour'] = (b[i]['hour'] + 1)
-   }
+   $('#heat-button').click(function(){
+     for(let i = 0; i<myArrayOfObjects.length; i++){
+       myArrayOfObjects[i]['value'] = 0;
+     }
 
-   for (let i = 1; i<8; i++){
-       for(let x = 1; x < 25; x++){
-           result = (_.where(b, {dayofweek: i, hour:x})).length;
-   		if(i != 1){
-   			count = (((i-1)*24) + (x-1));
-           }
-   		else{
-   			count = (x-1);
-           }
-   	myArrayOfObjects[count]['value'] = result;
+     let hold = [];
+     let c,day,count;
+
+     if ($("input:checkbox[name='Tov']").is(':checked')) {
+       let a = window.crimeList.filter(function (el) {
+         return el.type_crime === "Theft of Vehicle"
+       });
+       for (let i = 0; i < a.length; i++){
+         hold.push(a[i])
+       }
+     }
+     if ($("input:checkbox[name='Tfv']").is(':checked')) {
+       let a = window.crimeList.filter(function (el) {
+         return el.type_crime === "Theft from Vehicle"
+       });
+       for (let i = 0; i < a.length; i++){
+         hold.push(a[i])
+       }
+     }
+     else {
+       hold = window.crimeList;
+     }
+     let b = hold;
+
+    //  let b = window.crimeList;
+
+      for (let i = 0; i<b.length; i++){
+          c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
+          // day = (moment(c).day())+1;
+          day = (moment(c).day());
+          b[i]['dayofweek'] = day;
+          b[i]['hour'] = (b[i]['hour'] + 1)
+          // b[i]['hour'] = (b[i]['hour'])
+      }
+
+    for (let i = 0; i<7; i++){
+      for(let x = 1; x < 25; x++){
+        result = (_.where(b, {dayofweek: i, hour:x})).length;
+        if(i === 1){
+          count = (24 + (x-1));
+        }
+        else if (i > 1){
+          count = (((i)*24) + (x-1));
+        }
+        else{
+          count = (x-1);
+        }
+        myArrayOfObjects[count]['value'] = result;
+      }
     }
+    for (let i = 0; i<b.length; i++){
+        b[i]['hour'] = (b[i]['hour'] - 1);
+    }
+      // for (let i = 1; i<8; i++){
+      //     for(let x = 1; x < 25; x++){
+      //         result = (_.where(b, {dayofweek: i, hour:x})).length;
+      // 		if(i != 0){
+      // 			count = (((i-1)*24) + (x-1));
+      //         }
+      // 		else{
+      // 			count = (x-1);
+      //         }
+      // 	myArrayOfObjects[count]['value'] = result;
+      //  }
+      // }
+   heatmapChart(myArrayOfObjects);
+  //  console.log(myArrayOfObjects);
+ });
+
+ $('#clear-heat-button').click(function(){
+   for(let i = 0; i<myArrayOfObjects.length; i++){
+     myArrayOfObjects[i]['value'] = 0;
    }
-heatmapChart(myArrayOfObjects);
-}, 10000);
+   heatmapChart(myArrayOfObjects);
+   console.log(myArrayOfObjects);
+ });
+//
+//    setTimeout(function () {
+//    let b = window.crimeList
+//    let c,day,count;
+//    for (let i = 0; i<b.length; i++){
+//        c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
+//        day = (moment(c).day())+1;
+//        b[i]['dayofweek'] = day;
+//        b[i]['hour'] = (b[i]['hour'] + 1)
+//    }
+//
+//    for (let i = 1; i<8; i++){
+//        for(let x = 1; x < 25; x++){
+//            result = (_.where(b, {dayofweek: i, hour:x})).length;
+//    		if(i != 1){
+//    			count = (((i-1)*24) + (x-1));
+//            }
+//    		else{
+//    			count = (x-1);
+//            }
+//    	myArrayOfObjects[count]['value'] = result;
+//     }
+//    }
+// heatmapChart(myArrayOfObjects);
+// }, 10000);
 
 
   /*
@@ -380,6 +462,7 @@ for (let i = 0; i<b.length; i++){
     b[i]['dayofweek'] = day;
     b[i]['hour'] = (b[i]['hour'] + 1)
 }
+
 
 result = (_.where(b, {dayofweek: 6, hour:0})).length
 

@@ -45,7 +45,7 @@ function addMarker(props){
 
   // var markerCluster = new MarkerClusterer(map, markers,
   //             {imagePath: 'images/m'});
-  
+
 }
 
 // Sets the map on all markers in the array.
