@@ -3,7 +3,7 @@
 // The user can then click an option to hide, show or delete the markers.
 var map;
 var markers = [];
-
+var markerCluster;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
@@ -12,14 +12,23 @@ function initMap() {
   });
 
   // This event listener will call addMarker() when the map is clicked.
-  map.addListener('click', function(event) {
-    addMarker(event.latLng);
-  });
+  // map.addListener('click', function(event) {
+  //   addMarker(event.latLng);
+  // });
 
   new AutocompleteDirectionsHandler(map);
-
-
+  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  // var markers = markers.map(function(markers, i) {
+  //         return new google.maps.Marker({
+  //           position: markers.coords,
+  //           label: labels[i % labels.length]
+  //         });
+  //       });
+  markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'images/m'});
+  // markerCluster = new MarkerClusterer(map, markers);
 }
+
 
 // Adds a marker to the map and push to the array.
 function addMarker(props){
@@ -45,7 +54,7 @@ function addMarker(props){
 
   // var markerCluster = new MarkerClusterer(map, markers,
   //             {imagePath: 'images/m'});
-
+  // markerCluster.addMarkers(markers, true);
 }
 
 // Sets the map on all markers in the array.
@@ -53,6 +62,8 @@ function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
+  // markerCluster = new MarkerClusterer(map, markers,
+  //           {imagePath: '/images/m'});
 }
 
 // Removes the markers from the map, but keeps them in the array.
@@ -159,6 +170,7 @@ let zoom = {
 $(document).ready(function(){
     // Red light camera show button
    $('#red-light-camera-button').click(function(){
+     deleteMarkers();
      let hold = window.testList;
      for(var x = 0; x < hold.length; x++){
        let single = hold[x]
@@ -169,10 +181,13 @@ $(document).ready(function(){
        single['content'] = '<h4>Red Light Camera</h4>';
        addMarker(single);
      }
+     markerCluster = new MarkerClusterer(map, markers,
+               {imagePath: 'images/m'});
    });
 
    // Accident show button
    $('#accident-button').click(function(){
+     deleteMarkers();
     //  let hold = window.testList;
     // console.log(window.accidentList[0]);
     let hold = window.accidentList;
@@ -185,26 +200,27 @@ $(document).ready(function(){
       single['content'] = `Crash Count: ${single.crash_count} | Type:${single.crash_type}`;
       addMarker(single);
     }
+    markerCluster = new MarkerClusterer(map, markers,
+              {imagePath: 'images/m'});
    });
 
    // Crime show button
    $('#crime-button').click(function(){
+    deleteMarkers();
+
     let hold = [];
-    if ($("input:checkbox[name='Tov']").is(':checked')) {
-      let a = window.crimeList.filter(function (el) {
+    if ($("input:checkbox[name='Tov']").is(':checked') && $("input:checkbox[name='Tfv']").is(':checked')){
+      hold = window.crimeList;
+    }
+    else if ($("input:checkbox[name='Tov']").is(':checked')) {
+      hold = window.crimeList.filter(function (el) {
         return el.type_crime === "Theft of Vehicle"
       });
-      for (let i = 0; i < a.length; i++){
-        hold.push(a[i])
-      }
     }
-    if ($("input:checkbox[name='Tfv']").is(':checked')) {
-      let a = window.crimeList.filter(function (el) {
+    else if ($("input:checkbox[name='Tfv']").is(':checked')) {
+      hold = window.crimeList.filter(function (el) {
         return el.type_crime === "Theft from Vehicle"
       });
-      for (let i = 0; i < a.length; i++){
-        hold.push(a[i])
-      }
     }
     else {
       hold = window.crimeList;
@@ -217,17 +233,10 @@ $(document).ready(function(){
       single['coords']['lng'] = parseFloat(single['coords']['lng']);
       addMarker(single);
     }
+    markerCluster = new MarkerClusterer(map, markers,
+              {imagePath: 'images/m'});
    });
  });
-
-
-
-
-
-
-
-
-
 
 
 
