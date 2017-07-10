@@ -18,15 +18,6 @@ function initMap() {
 
   new AutocompleteDirectionsHandler(map);
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  // var markers = markers.map(function(markers, i) {
-  //         return new google.maps.Marker({
-  //           position: markers.coords,
-  //           label: labels[i % labels.length]
-  //         });
-  //       });
-  markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'images/m'});
-  // markerCluster = new MarkerClusterer(map, markers);
 }
 
 
@@ -62,8 +53,6 @@ function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
-  // markerCluster = new MarkerClusterer(map, markers,
-  //           {imagePath: '/images/m'});
 }
 
 // Removes the markers from the map, but keeps them in the array.
@@ -80,6 +69,13 @@ function showMarkers() {
 function deleteMarkers() {
   clearMarkers();
   markers = [];
+  deleteClusters();
+}
+
+function deleteClusters(){
+  if (typeof markerCluster !== 'undefined'){
+    markerCluster.clearMarkers();
+  }
 }
 
 // AUTOCOMPLETE DIRECTIONS
@@ -181,8 +177,8 @@ $(document).ready(function(){
        single['content'] = '<h4>Red Light Camera</h4>';
        addMarker(single);
      }
-     markerCluster = new MarkerClusterer(map, markers,
-               {imagePath: 'images/m'});
+    //  markerCluster = new MarkerClusterer(map, markers,
+              //  {imagePath: 'images/m'});
    });
 
    // Accident show button
@@ -209,6 +205,7 @@ $(document).ready(function(){
     deleteMarkers();
 
     let hold = [];
+    let area;
     if ($("input:checkbox[name='Tov']").is(':checked') && $("input:checkbox[name='Tfv']").is(':checked')){
       hold = window.crimeList;
     }
@@ -225,6 +222,18 @@ $(document).ready(function(){
     else {
       hold = window.crimeList;
     }
+
+    area = $('#neighbourhood')[0];
+    area = area.options[area.selectedIndex].text;
+
+    if (neighbourhood != 'All'){
+      hold = hold.filter(function (el) {
+        return el.neighbourhood === area;
+      });
+    }
+
+
+
     for(var x = 0; x < hold.length; x++){
       let single = hold[x]
       single['iconImage'] = 'images/thief.png';
@@ -241,6 +250,9 @@ $(document).ready(function(){
 
 
 
+// selecting dropdown menu neghiborhood
+// e = $('#neighbourhood')[0]
+// strUser = e.options[e.selectedIndex].text;
 
 
 

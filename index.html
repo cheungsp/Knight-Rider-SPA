@@ -3,9 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Cam Finder</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
@@ -59,7 +64,7 @@
 
     <div container="container-fluid">
       <div class="row">
-        <div id="right-panel" class="col-sm-3 col-md-3 col-lg-3">
+        <div id="right-panel" class="col-sm-2 col-md-2 col-lg-2">
           <div class="navbar navbar-inverse navbar-static">
             <div class="navbar-inner sidebar-inner">
               <span class="navbar-text section-title">Crime Types & counts</span>
@@ -92,6 +97,38 @@
           <!-- heatmap buttons -->
           <input id="heat-button" type="button" value="HeatMap" /><br>
           <input id="clear-heat-button" type="button" value="Clear HeatMap" /><br>
+          <hr>
+
+          <div class="form-group">
+            <label for="neighbourhood">Neighbourhood:</label>
+            <select class="form-control" id="neighbourhood">
+              <option value="All">All</option>
+              <option value="Arbutus Ridge">Arbutus Ridge</option>
+              <option value="Central Business District">Central Business District</option>
+              <option value="Dunbar-Southlands">Dunbar-Southlands</option>
+              <option value="Fairview">Fairview</option>
+              <option value="Grandview-Woodland">Grandview-Woodland</option>
+              <option value="Hastings-Sunrise">Hastings-Sunrise</option>
+              <option value="Kensington-Cedar Cottage">Kensington-Cedar Cottage</option>
+              <option value="Kerrisdale">Kerrisdale</option>
+              <option value="Killarney">Killarney</option>
+              <option value="Kitsilano">Kitsilano</option>
+              <option value="Marpole">Marpole</option>
+              <option value="Mount Pleasant">Mount Pleasant</option>
+              <option value="Musqueam">Musqueam</option>
+              <option value="Oakridge">Oakridge</option>
+              <option value="Renfrew-Collingwood">Renfrew-Collingwood</option>
+              <option value="Riley Park">Riley Park</option>
+              <option value="Shaughnessy">Shaughnessy</option>
+              <option value="South Cambie">South Cambie</option>
+              <option value="Stanley Park">Stanley Park</option>
+              <option value="Strathcona">Strathcona</option>
+              <option value="Sunset">Sunset</option>
+              <option value="Victoria-Fraserview">Victoria-Fraserview</option>
+              <option value="West End">West End</option>
+              <option value="West Point Grey">West Point Grey</option>
+            </select>
+          </div>
 
 
           <div class="row">
