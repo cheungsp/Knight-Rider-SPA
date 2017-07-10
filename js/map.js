@@ -1,9 +1,10 @@
 // In the following example, markers appear when the user clicks on the map.
 // The markers are stored in an array.
 // The user can then click an option to hide, show or delete the markers.
-var map;
-var markers = [];
-var markerCluster;
+let map;
+let markers = [];
+let markerCluster;
+let monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
@@ -20,12 +21,21 @@ function initMap() {
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 }
 
+var opt = {
+               "legend": {
+                  "Vehicle Collision" : "#FF0066",
+                  "Theft from Vehicle" : "#FF9933",
+                  "Theft of Vehicle" : "#99FF99"
+               }
+           };
+
 
 // Adds a marker to the map and push to the array.
 function addMarker(props){
    var marker = new google.maps.Marker({
      position:props.coords,
      map:map,
+     title: props['type_crime']
      // icon:props.iconImage
    });
    if(props.iconImage){
@@ -41,6 +51,7 @@ function addMarker(props){
        infoWindow.open(map, marker);
      })
    }
+  //  console.log(props['type_crime']);
   markers.push(marker);
 
   // var markerCluster = new MarkerClusterer(map, markers,
@@ -70,6 +81,8 @@ function deleteMarkers() {
   clearMarkers();
   markers = [];
   deleteClusters();
+  // opt = {};
+  deleteLegend();
 }
 
 function deleteClusters(){
@@ -78,6 +91,9 @@ function deleteClusters(){
   }
 }
 
+function deleteLegend(){
+  $("div[style='margin-right: 5px; background-color: rgba(255, 255, 255, 0.9); padding: 10px; width: 123px; z-index: 0; position: absolute; top: 0px; right: 0px;']").remove();
+}
 // AUTOCOMPLETE DIRECTIONS
 function AutocompleteDirectionsHandler(map) {
   this.map = map;
@@ -196,43 +212,102 @@ $(document).ready(function(){
       single['content'] = `Crash Count: ${single.crash_count} | Type:${single.crash_type}`;
       addMarker(single);
     }
-    markerCluster = new MarkerClusterer(map, markers,
-              {imagePath: 'images/m'});
+    markerCluster = new MarkerClusterer(map, markers, opt);
    });
+  //   markerCluster = new MarkerClusterer(map, markers,
+  //             {imagePath: 'images/m'});
+  //  });
 
    // Crime show button
    $('#crime-button').click(function(){
     deleteMarkers();
-
-    let hold = [];
     let area;
-    if ($("input:checkbox[name='Tov']").is(':checked') && $("input:checkbox[name='Tfv']").is(':checked')){
-      hold = window.crimeList;
-    }
-    else if ($("input:checkbox[name='Tov']").is(':checked')) {
-      hold = window.crimeList.filter(function (el) {
+    let tempFilter;
+    let hold = [];
+    // if ($("input:checkbox[name='Tov']").is(':checked') && $("input:checkbox[name='Tfv']").is(':checked')){
+    //   tempFilter = window.crimeList;
+    // }
+    // hold.push(tempFilter);
+    // let basicValues = $("#slider").rangeSlider("values");
+    // console.log(basicValues['min']);
+    // console.log(basicValues['max']);
+    //
+    // let minMonth = basicValues['min'];
+    // let maxMonth = basicValues['max'];
+    // let monthHolder = [];
+    //
+    // for (i = min; i <= max; i++){
+	  //    for(let x = 0; x < testArray.length; x++){
+		//        if (testArray[x] === i){
+		//            result.push(testArray[x])}
+    //          }
+    //        }
+
+
+
+
+    if ($("input:checkbox[name='Tov']").is(':checked')) {
+      tempFilter = window.crimeList.filter(function (el) {
         return el.type_crime === "Theft of Vehicle"
       });
     }
-    else if ($("input:checkbox[name='Tfv']").is(':checked')) {
-      hold = window.crimeList.filter(function (el) {
+    if (typeof tempFilter !== 'undefined'){
+      for (let i = 0; i<tempFilter.length; i++){
+        hold.push(tempFilter[i]);
+      }
+    }
+
+    if ($("input:checkbox[name='Tfv']").is(':checked')) {
+      tempFilter = window.crimeList.filter(function (el) {
         return el.type_crime === "Theft from Vehicle"
       });
     }
-    else {
-      hold = window.crimeList;
+    if (typeof tempFilter !== 'undefined'){
+      for (let i = 0; i<tempFilter.length; i++){
+        hold.push(tempFilter[i]);
+      }
+    }
+
+
+
+    if ($("input:checkbox[name='Dov']").is(':checked')) {
+      tempFilter = window.crimeList.filter(function (el) {
+        return el.type_crime === "Vehicle Collision"
+      });
+    }
+    if (typeof tempFilter !== 'undefined'){
+      for (let i = 0; i<tempFilter.length; i++){
+        hold.push(tempFilter[i]);
+      }
     }
 
     area = $('#neighbourhood')[0];
     area = area.options[area.selectedIndex].text;
 
-    if (neighbourhood != 'All'){
-      hold = hold.filter(function (el) {
+    if (area != 'All'){
+        hold = hold.filter(function (el) {
         return el.neighbourhood === area;
       });
     }
 
+    let basicValues = $("#slider").rangeSlider("values");
+    console.log(basicValues['min']);
+    console.log(basicValues['max']);
 
+    let minMonth = basicValues['min'];
+    let maxMonth = basicValues['max'];
+    let monthHolder = [];
+
+    for (i = minMonth; i <= maxMonth; i++){
+     for(let x = 0; x < hold.length; x++){
+       if (hold[x]['month'] === i){
+         monthHolder.push(hold[x])}
+         }
+       }
+       console.log(hold);
+    console.log(monthHolder);
+    hold = monthHolder;
+    console.log(hold);
 
     for(var x = 0; x < hold.length; x++){
       let single = hold[x]
@@ -242,9 +317,24 @@ $(document).ready(function(){
       single['coords']['lng'] = parseFloat(single['coords']['lng']);
       addMarker(single);
     }
-    markerCluster = new MarkerClusterer(map, markers,
-              {imagePath: 'images/m'});
+    markerCluster = new MarkerClusterer(map, markers, opt);
+              // {imagePath: 'images/m'});
    });
+
+
+
+   let months = $("#slider").rangeSlider({
+    defaultValues: {min: 1, max: 2},
+    bounds: {min: 1, max: 12},
+    range: {min: 1},
+    step: 1,
+    formatter: function(val) {
+        // var m = months.rangeSlider("values").min;
+        return (monthList[val-1]);
+      }
+    })
+
+
  });
 
 
@@ -253,7 +343,6 @@ $(document).ready(function(){
 // selecting dropdown menu neghiborhood
 // e = $('#neighbourhood')[0]
 // strUser = e.options[e.selectedIndex].text;
-
 
 
 

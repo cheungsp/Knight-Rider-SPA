@@ -140,16 +140,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const cameraForm = document.querySelector('#camera-form');
   // NAV BAR ELEMENTS
 
-  function showCamera (id) {
-    return getCamera(id)
-      .then(camera => {
-        cameraList.classList.add('hidden');
-        cameraDetails.innerHTML = renderCameraDetails(camera);
-        cameraDetails.classList.remove('hidden');
-        cameraForm.classList.add('hidden');
-
-      });
-  }
+  // function showCamera (id) {
+  //   return getCamera(id)
+  //     .then(camera => {
+  //       cameraList.classList.add('hidden');
+  //       cameraDetails.innerHTML = renderCameraDetails(camera);
+  //       cameraDetails.classList.remove('hidden');
+  //       cameraForm.classList.add('hidden');
+  //
+  //     });
+  // }
 
   function indexCamera () {
     cameraList.classList.remove('hidden');
@@ -161,25 +161,25 @@ document.addEventListener('DOMContentLoaded', () => {
   function reloadCameras () {
     return getCameras().then(cameras => {
       window.testList = cameras;
-      cameraList.innerHTML = renderCameraList(cameras);
+      // cameraList.innerHTML = renderCameraList(cameras);
     })
   }
   reloadCameras();
 
 
-  cameraList.addEventListener('click', event => {
-    const {target} = event;
-    if (target.matches('a.camera-link')) {
-      event.preventDefault();
-      const id = target.getAttribute('data-id');
-      showCamera(id);
-    }
-
-    if (target.matches('a.back-button')) {
-      event.preventDefault();
-      indexCamera();
-    }
-  });
+  // cameraList.addEventListener('click', event => {
+  //   const {target} = event;
+  //   if (target.matches('a.camera-link')) {
+  //     event.preventDefault();
+  //     const id = target.getAttribute('data-id');
+  //     showCamera(id);
+  //   }
+  //
+  //   if (target.matches('a.back-button')) {
+  //     event.preventDefault();
+  //     indexCamera();
+  //   }
+  // });
 
   //////////////////////////////////////////////////////////////////////////////
   //                             ACCIDENTS                                    //
@@ -189,16 +189,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const accidentForm = document.querySelector('#accident-form');
   // NAV BAR ELEMENTS
 
-  function showAccident (id) {
-    return getAccident(id)
-      .then(accident => {
-        accidentList.classList.add('hidden');
-        accidentDetails.innerHTML = renderAccidentDetails(accident);
-        accidentDetails.classList.remove('hidden');
-        accidentForm.classList.add('hidden');
-
-      });
-  }
+  // function showAccident (id) {
+  //   return getAccident(id)
+  //     .then(accident => {
+  //       accidentList.classList.add('hidden');
+  //       accidentDetails.innerHTML = renderAccidentDetails(accident);
+  //       accidentDetails.classList.remove('hidden');
+  //       accidentForm.classList.add('hidden');
+  //
+  //     });
+  // }
 
   function indexAccident () {
     accidentList.classList.remove('hidden');
@@ -210,25 +210,27 @@ document.addEventListener('DOMContentLoaded', () => {
   function reloadAccidents () {
     return getAccidents().then(accidents => {
       window.accidentList = accidents;
-      accidentList.innerHTML = renderAccidentList(accidents);
+      // accidentList.innerHTML = renderAccidentList(accidents);
     })
   }
   reloadAccidents();
 
 
-  accidentList.addEventListener('click', event => {
-    const {target} = event;
-    if (target.matches('a.accident-link')) {
-      event.preventDefault();
-      const id = target.getAttribute('data-id');
-      showAccident(id);
-    }
+  // accidentList.addEventListener('click', event => {
+  //   const {target} = event;
+  //   if (target.matches('a.accident-link')) {
+  //     event.preventDefault();
+  //     const id = target.getAttribute('data-id');
+  //     showAccident(id);
+  //   }
+  //
+  //   if (target.matches('a.back-button')) {
+  //     event.preventDefault();
+  //     indexAccident();
+  //   }
+  // });
 
-    if (target.matches('a.back-button')) {
-      event.preventDefault();
-      indexAccident();
-    }
-  });
+
   //////////////////////////////////////////////////////////////////////////////
   //                             ACCIDENTS                                    //
   //////////////////////////////////////////////////////////////////////////////
@@ -239,16 +241,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const crimeDetails = document.querySelector('#crime-details');
   // const crimeForm = document.querySelector('#crime-form');
 
-  function showCrime (id) {
-    return getCrime(id)
-      .then(crime => {
-        crimeList.classList.add('hidden');
-        crimeDetails.innerHTML = renderCrimeDetails(crime);
-        crimeDetails.classList.remove('hidden');
-        // crimeForm.classList.add('hidden');
-
-      });
-  }
+  // function showCrime (id) {
+  //   return getCrime(id)
+  //     .then(crime => {
+  //       crimeList.classList.add('hidden');
+  //       crimeDetails.innerHTML = renderCrimeDetails(crime);
+  //       crimeDetails.classList.remove('hidden');
+  //       // crimeForm.classList.add('hidden');
+  //
+  //     });
+  // }
 
   function indexCrime () {
     crimeList.classList.remove('hidden');
@@ -266,19 +268,21 @@ document.addEventListener('DOMContentLoaded', () => {
   reloadCrimes();
 
 
-  crimeList.addEventListener('click', event => {
-    const {target} = event;
-    if (target.matches('a.crime-link')) {
-      event.preventDefault();
-      const id = target.getAttribute('data-id');
-      showCrime(id);
-    }
+  // crimeList.addEventListener('click', event => {
+  //   const {target} = event;
+  //   if (target.matches('a.crime-link')) {
+  //     event.preventDefault();
+  //     const id = target.getAttribute('data-id');
+  //     showCrime(id);
+  //   }
+  //
+  //   if (target.matches('a.back-button')) {
+  //     event.preventDefault();
+  //     indexCrime();
+  //   }
+  // });
 
-    if (target.matches('a.back-button')) {
-      event.preventDefault();
-      indexCrime();
-    }
-  });
+
   //////////////////////////////////////////////////////////////////////////////
   //                    CRIMES                                                //
   //////////////////////////////////////////////////////////////////////////////

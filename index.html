@@ -11,11 +11,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
 
-    <script type="text/javascript" src="js/index.js"></script>
+
+    <!-- <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script type="text/javascript" src="js/markerclusterer.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    google.load('visualization', '1.0', {'packages':['corechart']});
+    // google.setOnLoadCallback(drawChart);
+     </script> -->
     <!-- <script src="http://d3js.org/d3.v3.js"></script> -->
     <!-- <script type="text/javascript" src="js/timemap.js"></script> -->
   </head>
@@ -70,18 +78,19 @@
               <span class="navbar-text section-title">Crime Types & counts</span>
             </div>
           </div>
+          <div class="selection">
           <form action="">
             <input type="checkbox" name="Tov" value="Tov"> Theft of Vehicle
             <br>
             <input type="checkbox" name="Tfv" value="Tfv"> Theft from Vehicle
             <br>
-            <input type="checkbox" name="Dov" value="Dov"> Damage on Vehicle
-            <br>
-            <input type="checkbox" name="AL" value="AL"> Accident Locations
-            <br>
-            <input type="checkbox" name="PT" value="PT"> Parking Ticket Hot Spots
-            <br>
-            <input type="checkbox" name="RLC" value="RLC"> Red Light Cameras
+            <input type="checkbox" name="Dov" value="Dov"> Vehicle Collision
+            <!-- <br> -->
+            <!-- <input type="checkbox" name="AL" value="AL"> Accident Locations -->
+            <!-- <br> -->
+            <!-- <input type="checkbox" name="PT" value="PT"> Parking Ticket Hot Spots -->
+            <!-- <br> -->
+            <!-- <input type="checkbox" name="RLC" value="RLC"> Red Light Cameras -->
           </form>
           <hr>
 
@@ -130,6 +139,13 @@
             </select>
           </div>
 
+          <!-- <div id="week_slider"></div> -->
+
+          <!-- <div>
+          <label class="checkbox-inline"><input name="month" type="checkbox" value="January">January</label>
+          <label class="checkbox-inline"><input name="month" type="checkbox" value="February">February</label>
+          <label class="checkbox-inline"><input name="month" type="checkbox" value="March">March</label>
+        </div> -->
 
           <div class="row">
             <input id="origin-input" class="controls" type="text"
@@ -138,8 +154,10 @@
             placeholder="Enter a destination location">
           </div>
         </div>
+        </div>
 
-        <div class="col-sm-9 col-md-9 col-lg-9">
+        <div class="col-sm-9 col-md-9 col-lg-9 map-holder">
+          <div id="slider"></div>
           <div id="map"></div>
         </div>
       </div>
@@ -151,7 +169,7 @@
         </div>
       </div>
 
-    <div class="row api-list">
+    <!-- <div class="row api-list">
       <div class="col-sm-3 col-md-3 col-lg-3">
         <h1>Cameras</h1>
         <div id="camera-details" class="hidden"></div>
@@ -167,18 +185,30 @@
         <div id="crime-details" class="hidden"></div>
         <div id="crimes-list"></div>
       </div>
-    </div>
+    </div> -->
+
   </div>
 
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script type="text/javascript" src="js/markerclusterer.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    google.load('visualization', '1.0', {'packages':['corechart']});
+  // google.setOnLoadCallback(drawChart);
+   </script>
     <script src="http://d3js.org/d3.v3.js"></script>
     <script type="text/javascript" src="js/timemap.js"></script>
     <!-- <script type="text/javascript" src="js/date.js"></script> -->
-    <script type="text/javascript" src="js/markerclusterer.js"></script>
+    <script src="vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="vendor/jQRangeSlider-5.7.2/jQRangeSlider-min.js"></script>
+    <script src="vendor/jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script>
 
     <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv4NtDTdhX6O4lXj3uNW21Y6CIRPE9x5w&libraries=geometry,places,visualization&callback=initMap">
 
     </script>
-
   </body>
 </html>
