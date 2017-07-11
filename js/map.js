@@ -1,5 +1,6 @@
 let map;
 let markers = [];
+let line = [];
 let markerCluster;
 let monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 let neighbourhoods = {
@@ -44,7 +45,9 @@ var opt = {
            "legend": {
               "Vehicle Collision" : "#d80019",
               "Theft from Vehicle" : "#4fcce2",
-              "Theft of Vehicle" : "#000000"
+              "Theft of Vehicle" : "#000000",
+              "Red Light Camera" : "#7d14c9"
+              // "Accident" : "#705c2c"
              }
          };
 
@@ -86,7 +89,8 @@ function clearMarkers() {
 
 // Shows any markers currently in the array.
 function showMarkers() {
-  setMapOnAll(map);
+  // setMapOnAll(map);
+  removeLine();
 }
 
 // Deletes all markers in the array by removing references to them.
@@ -94,10 +98,18 @@ function deleteMarkers() {
   clearMarkers();
   markers = [];
   deleteClusters();
-  // opt = {};
   deleteLegend();
 }
 
+function removeLine(){
+  map = new google.maps.Map(document.getElementById('map'), {
+    mapTypeControl: false,
+    center: {lat: 49.2427, lng: -123.1207},
+    zoom: 13
+  });
+
+  new AutocompleteDirectionsHandler(map);
+}
 function deleteClusters(){
   if (typeof markerCluster !== 'undefined'){
     markerCluster.clearMarkers();
@@ -132,8 +144,8 @@ function AutocompleteDirectionsHandler(map) {
   this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
   this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+  // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+  // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
   // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
 }
 
@@ -166,7 +178,6 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
   });
 
 };
-
 AutocompleteDirectionsHandler.prototype.route = function() {
   if (!this.originPlaceId || !this.destinationPlaceId) {
     return;
@@ -179,7 +190,16 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     travelMode: this.travelMode
   }, function(response, status) {
     if (status === 'OK') {
+      // console.log(response);
+      // console.log(response['routes']);
+      // console.log(response['routes'][0]);
+      // console.log(response['routes'][0]['overview_polyline']);
+      // window.routeLine = response['routes'][0]['overview_polyline'];
+      window.firstLine = response['routes'][0]['overview_polyline'];
+      window.routeLine = response['routes'][0].legs;
       me.directionsDisplay.setDirections(response);
+      // console.log(DirectionsResult);
+      // debugger;
     } else {
       window.alert('Directions request failed due to ' + status);
     }
@@ -187,6 +207,126 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 };
 
 $(document).ready(function(){
+  $('#router').click(function(){
+    // let codeCore = {lat: 49.281947, lng: -123.108617};
+    let codeCore = new google.maps.LatLng(49.281947, -123.108617)
+    // console.log(window.routeLine);
+    let legs = window.routeLine;
+    // console.log(a);
+    polyline = new google.maps.Polyline({
+      path: [],
+      strokeColor: '#FF0000',
+      strokeWeight: 3
+    });
+    let bounds = new google.maps.LatLngBounds();
+
+    // let legs = response.routes[0].legs;
+    for (i=0;i<legs.length;i++) {
+      let steps = legs[i].steps;
+      for (j=0;j<steps.length;j++) {
+        let nextSegment = steps[j].path;
+        for (k=0;k<nextSegment.length;k++) {
+          polyline.getPath().push(nextSegment[k]);
+          bounds.extend(nextSegment[k]);
+        }
+      }
+    }
+    // polyline.setMap(map);
+    // map.fitBounds(bounds);
+
+    // console.log(polyline);
+    let hold = window.testList;
+    let redlightcams = [];
+    for (let i = 0; i<hold.length; i++){
+      let d = new google.maps.LatLng(`${hold[i]['latitude']}`, `${hold[i]['longitude']}`);
+      redlightcams.push(d);
+    }
+    let count = 0;
+    let zoom = {
+      coords:{lat: 49.2317,lng: -123.0927},
+      iconImage:'images/cam.png',
+      content:'<h4>Red Light Camera</h4>'
+    }
+    let camsToShow = [];
+    for (let x = 0; x < redlightcams.length; x++){
+      if (google.maps.geometry.poly.isLocationOnEdge(redlightcams[x], polyline, 10e-04)) {
+        // count++;
+        let latitude = redlightcams[x].lat();
+        let longitude = redlightcams[x].lng();
+        let zoom = {
+          coords:{lat: latitude, lng: longitude},
+          iconImage: 'images/cam.png',
+          type_crime: 'Red Light Camera'
+          }
+        camsToShow.push(zoom);
+        }
+      }
+    for (let a = 0; a < camsToShow.length; a++){
+      addMarker(camsToShow[a]);
+    }
+
+    // let accHold = window.accidentList;
+    // let accidents = [];
+    // let accidentsToShow = [];
+    // for (let i = 0; i<accHold.length; i++){
+    //   let d = new google.maps.LatLng(`${accHold[i]['latitude']}`, `${accHold[i]['longitude']}`);
+    //   d['crash_count'] = accHold[i]['crash_count'];
+    //   accidents.push(d);
+    // }
+    // for (let x = 0; x < accidents.length; x++){
+    //   if (google.maps.geometry.poly.isLocationOnEdge(accidents[x], polyline, 10e-04)) {
+    //     let latitude = accidents[x].lat();
+    //     let longitude = accidents[x].lng();
+    //     let crashCount = accidents[x]['crash_count'];
+    //     let zoom = {
+    //       coords:{lat: latitude, lng: longitude},
+    //       // iconImage:'images/cam.png'
+    //       content:`Crash Count: ${crashCount}`,
+    //       type_crime: 'Accident'
+    //       }
+    //     accidentsToShow.push(zoom);
+    //     }
+    //   }
+    // for (let a = 0; a < accidentsToShow.length; a++){
+    //   addMarker(accidentsToShow[a]);
+    // }
+
+    let accHold = window.crimeList.filter(function (el) {
+      return el.type_crime === "Vehicle Collision"
+    });
+
+    let accidents = [];
+    let accidentsToShow = [];
+    for (let i = 0; i<accHold.length; i++){
+      let d = new google.maps.LatLng(`${accHold[i]['latitude']}`, `${accHold[i]['longitude']}`);
+      d['crash_count'] = accHold[i]['crash_count'];
+      accidents.push(d);
+    }
+    for (let x = 0; x < accidents.length; x++){
+      if (google.maps.geometry.poly.isLocationOnEdge(accidents[x], polyline, 10e-05)) {
+        count++;
+        let latitude = accidents[x].lat();
+        let longitude = accidents[x].lng();
+        let crashCount = accidents[x]['crash_count'];
+        let zoom = {
+          coords:{lat: latitude, lng: longitude},
+          // iconImage:'images/cam.png'
+          content:`Crash Count: ${crashCount}`,
+          type_crime: 'Vehicle Collision'
+          }
+        accidentsToShow.push(zoom);
+        }
+      }
+    for (let a = 0; a < accidentsToShow.length; a++){
+      addMarker(accidentsToShow[a]);
+    }
+    markerCluster = new MarkerClusterer(map, markers, opt);
+
+
+    console.log('count: ' + count);
+
+  });
+
     // Red light camera show button
    $('#red-light-camera-button').click(function(){
      deleteMarkers();
@@ -203,22 +343,22 @@ $(document).ready(function(){
    });
 
    // Accident show button
-  //  $('#accident-button').click(function(){
-  //    deleteMarkers();
-  //   //  let hold = window.testList;
-  //   // console.log(window.accidentList[0]);
-  //   let hold = window.accidentList;
-  //   for(var x = 0; x < hold.length; x++){
-  //     let single = hold[x]
-  //     single['iconImage'] = 'images/accident.png';
-  //     single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
-  //     single['coords']['lat'] = parseFloat(single['coords']['lat']);
-  //     single['coords']['lng'] = parseFloat(single['coords']['lng']);
-  //     single['content'] = `Crash Count: ${single.crash_count} | Type:${single.crash_type}`;
-  //     addMarker(single);
-  //   }
-  //   markerCluster = new MarkerClusterer(map, markers, opt);
-  //  });
+   $('#accident-button').click(function(){
+     deleteMarkers();
+    //  let hold = window.testList;
+    // console.log(window.accidentList[0]);
+    let hold = window.accidentList;
+    for(var x = 0; x < hold.length; x++){
+      let single = hold[x]
+      single['iconImage'] = 'images/accident.png';
+      single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
+      single['coords']['lat'] = parseFloat(single['coords']['lat']);
+      single['coords']['lng'] = parseFloat(single['coords']['lng']);
+      single['content'] = `Crash Count: ${single.crash_count} | Type:${single.crash_type}`;
+      addMarker(single);
+    }
+    markerCluster = new MarkerClusterer(map, markers, opt);
+   });
   //   markerCluster = new MarkerClusterer(map, markers,
   //             {imagePath: 'images/m'});
   //  });
