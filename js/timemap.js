@@ -20,7 +20,7 @@ var margin = { top: 50, right: 0, bottom: 100, left: 30 },
   // setTimeout(function () {
   //   // console.log(window.crimeList);
   //   let a = window.crimeList.filter(function (el) {
-  //     return el.type_crime === "Theft of Vehicle"
+  //     return el.type_crime === "Stolen Vehicle"
   //   });
   //   console.log(a);
   // }, 5000);
@@ -333,7 +333,7 @@ legend.exit().remove();
 
     //  if ($("input:checkbox[name='Tov']").is(':checked')) {
     //    let a = window.crimeList.filter(function (el) {
-    //      return el.type_crime === "Theft of Vehicle"
+    //      return el.type_crime === "Stolen Vehicle"
     //    });
     //    for (let i = 0; i < a.length; i++){
     //      hold.push(a[i])

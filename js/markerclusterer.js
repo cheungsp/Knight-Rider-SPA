@@ -103,7 +103,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
     /**
      * @private
      */
-    this.minClusterSize_ = options['minimumClusterSize'] || 2;
+    this.minClusterSize_ = options['minimumClusterSize'] || 4;
 
 
     /**
@@ -267,8 +267,9 @@ MarkerClusterer.prototype.setupLegend_ = function (markers) {
 
     var markerSymbol = {
         path: 'M256 14.316c-91.31 0-165.325 74.025-165.325 165.325 0.010 91.32 165.325 318.044 165.325 318.044s165.315-226.724 165.315-318.034c0.010-91.31-73.984-165.335-165.315-165.335zM256 245.494c-34.56 0-62.608-28.078-62.608-62.648 0-34.55 28.037-62.566 62.608-62.566 34.591 0 62.618 28.027 62.618 62.566 0 34.57-28.017 62.649-62.618 62.649z',
-        fillOpacity: 1.0,
-        scale: 0.065,
+        // fillOpacity: 1.0,
+        fillOpacity: 0.8,
+        scale: 0.055,
         //strokeColor: 'white',
         //strokeWeight: 1,
         anchor: new google.maps.Point(250, 500)

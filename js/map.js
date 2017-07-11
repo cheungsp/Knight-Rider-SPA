@@ -30,6 +30,10 @@ let neighbourhoods = {
   westpointgrey : {lat: 49.2610, lng: -123.2001}
 };
 
+let clusteroptions = {
+  gridSize: 60
+}
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
@@ -43,12 +47,12 @@ function initMap() {
 
 var opt = {
            "legend": {
-              "Vehicle Collision" : "#d80019",
-              "Theft from Vehicle" : "#4fcce2",
-              "Theft of Vehicle" : "#000000",
-              "Red Light Camera" : "#7d14c9"
+              "Vehicle Collision" : "#0c0cf2",
+              "Theft from Vehicle" : "#bc01b9",
+              "Stolen Vehicle" : "#000000",
+              "Red Light Camera" : "#ff2121"
               // "Accident" : "#705c2c"
-             }
+            }
          };
 
 
@@ -190,16 +194,8 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     travelMode: this.travelMode
   }, function(response, status) {
     if (status === 'OK') {
-      // console.log(response);
-      // console.log(response['routes']);
-      // console.log(response['routes'][0]);
-      // console.log(response['routes'][0]['overview_polyline']);
-      // window.routeLine = response['routes'][0]['overview_polyline'];
-      window.firstLine = response['routes'][0]['overview_polyline'];
       window.routeLine = response['routes'][0].legs;
       me.directionsDisplay.setDirections(response);
-      // console.log(DirectionsResult);
-      // debugger;
     } else {
       window.alert('Directions request failed due to ' + status);
     }
@@ -208,11 +204,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 
 $(document).ready(function(){
   $('#router').click(function(){
-    // let codeCore = {lat: 49.281947, lng: -123.108617};
-    let codeCore = new google.maps.LatLng(49.281947, -123.108617)
-    // console.log(window.routeLine);
     let legs = window.routeLine;
-    // console.log(a);
     polyline = new google.maps.Polyline({
       path: [],
       strokeColor: '#FF0000',
@@ -220,7 +212,6 @@ $(document).ready(function(){
     });
     let bounds = new google.maps.LatLngBounds();
 
-    // let legs = response.routes[0].legs;
     for (i=0;i<legs.length;i++) {
       let steps = legs[i].steps;
       for (j=0;j<steps.length;j++) {
@@ -231,10 +222,6 @@ $(document).ready(function(){
         }
       }
     }
-    // polyline.setMap(map);
-    // map.fitBounds(bounds);
-
-    // console.log(polyline);
     let hold = window.testList;
     let redlightcams = [];
     for (let i = 0; i<hold.length; i++){
@@ -264,55 +251,40 @@ $(document).ready(function(){
     for (let a = 0; a < camsToShow.length; a++){
       addMarker(camsToShow[a]);
     }
-
-    // let accHold = window.accidentList;
-    // let accidents = [];
-    // let accidentsToShow = [];
-    // for (let i = 0; i<accHold.length; i++){
-    //   let d = new google.maps.LatLng(`${accHold[i]['latitude']}`, `${accHold[i]['longitude']}`);
-    //   d['crash_count'] = accHold[i]['crash_count'];
-    //   accidents.push(d);
-    // }
-    // for (let x = 0; x < accidents.length; x++){
-    //   if (google.maps.geometry.poly.isLocationOnEdge(accidents[x], polyline, 10e-04)) {
-    //     let latitude = accidents[x].lat();
-    //     let longitude = accidents[x].lng();
-    //     let crashCount = accidents[x]['crash_count'];
-    //     let zoom = {
-    //       coords:{lat: latitude, lng: longitude},
-    //       // iconImage:'images/cam.png'
-    //       content:`Crash Count: ${crashCount}`,
-    //       type_crime: 'Accident'
-    //       }
-    //     accidentsToShow.push(zoom);
-    //     }
-    //   }
-    // for (let a = 0; a < accidentsToShow.length; a++){
-    //   addMarker(accidentsToShow[a]);
-    // }
-
     let accHold = window.crimeList.filter(function (el) {
       return el.type_crime === "Vehicle Collision"
     });
+    console.log('accHold');
+    console.log(accHold);
 
     let accidents = [];
     let accidentsToShow = [];
     for (let i = 0; i<accHold.length; i++){
       let d = new google.maps.LatLng(`${accHold[i]['latitude']}`, `${accHold[i]['longitude']}`);
-      d['crash_count'] = accHold[i]['crash_count'];
+      d['month'] = accHold[i]['month'];
+      d['day'] = accHold[i]['day'];
+      d['hour'] = accHold[i]['hour'];
       accidents.push(d);
     }
+    console.log('accidents');
+    console.log(accidents);
+
     for (let x = 0; x < accidents.length; x++){
       if (google.maps.geometry.poly.isLocationOnEdge(accidents[x], polyline, 10e-05)) {
         count++;
+        // console.log(accidents[x]);
         let latitude = accidents[x].lat();
         let longitude = accidents[x].lng();
         let crashCount = accidents[x]['crash_count'];
+        let month = accidents[x]['month'];
+        let day = accidents[x]['day'];
+        let hour = accidents[x]['hour'];
         let zoom = {
           coords:{lat: latitude, lng: longitude},
-          // iconImage:'images/cam.png'
-          content:`Crash Count: ${crashCount}`,
-          type_crime: 'Vehicle Collision'
+          type_crime: 'Vehicle Collision',
+          month: month,
+          day: day,
+          hour: hour
           }
         accidentsToShow.push(zoom);
         }
@@ -324,6 +296,8 @@ $(document).ready(function(){
 
 
     console.log('count: ' + count);
+    console.log(accidentsToShow);
+    window.crimeEnd = accidentsToShow;
 
   });
 
@@ -373,7 +347,7 @@ $(document).ready(function(){
 
     if ($("input:checkbox[name='Tov']").is(':checked')) {
       tempFilter = window.crimeList.filter(function (el) {
-        return el.type_crime === "Theft of Vehicle"
+        return el.type_crime === "Stolen Vehicle"
       });
     }
     if (typeof tempFilter !== 'undefined'){
@@ -459,7 +433,16 @@ $(document).ready(function(){
       }
     })
 
-
+    $('#heat-score-button').click(function(){
+      // $('.statistic-counter').removeClass("visibility");
+      // $('.statistic-counter').toggle();
+      // $('.statistic-counter').fadeTo(1);
+      $('.statistic-counter').css({ opacity: 1 });
+      jQuery('.statistic-counter').counterUp({
+                    delay: 10,
+                    time: 2000
+                })
+              });
  });
 
 
