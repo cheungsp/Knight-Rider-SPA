@@ -1,36 +1,54 @@
-// In the following example, markers appear when the user clicks on the map.
-// The markers are stored in an array.
-// The user can then click an option to hide, show or delete the markers.
 let map;
 let markers = [];
 let markerCluster;
 let monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+let neighbourhoods = {
+  arbutus : {lat: 49.256571, lng: -123.155374},
+  downtown : {lat: 49.282560, lng: -123.118895},
+  dunbarsouthlands : {lat: 49.2357, lng: -123.1888},
+  fairview : {lat: 49.2660, lng: -123.1289},
+  grandviewwoodland : {lat: 49.2697, lng: -123.0697},
+  hastingssunrise : {lat: 49.2811, lng: -123.0441},
+  kensingtoncedarcottage : {lat: 49.2484, lng: -123.0701},
+  kerrisdale : {lat: 49.2341, lng: -123.1554},
+  killarney : {lat: 49.2247, lng: -123.0411},
+  kitsilano : {lat: 49.2709, lng: -123.1621},
+  marpole : {lat: 49.210837, lng: -123.134088},
+  mountpleasant : {lat: 49.258811, lng: -123.107480},
+  musqueam : {lat: 49.2250, lng: -123.1922},
+  oakridge : {lat: 49.2298, lng: -123.1162},
+  renfrewcollingwood : {lat: 49.2411, lng: -123.0388},
+  rileypark : {lat: 49.2433, lng: -123.1045},
+  shaughnessy : {lat: 49.2453, lng: -123.1413},
+  southcambie : {lat: 49.2452, lng: -123.1208},
+  stanleypark : {lat: 49.3017, lng: -123.1417},
+  strathcona : {lat: 49.2738, lng: -123.0885},
+  sunset : {lat: 49.223181, lng: -123.100444},
+  victoriafraserview : {lat: 49.2185, lng: -123.0659},
+  westend : {lat: 49.2856, lng: -123.1306},
+  westpointgrey : {lat: 49.2610, lng: -123.2001}
+};
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
     center: {lat: 49.2427, lng: -123.1207},
-    zoom: 12
+    zoom: 13
   });
-
-  // This event listener will call addMarker() when the map is clicked.
-  // map.addListener('click', function(event) {
-  //   addMarker(event.latLng);
-  // });
 
   new AutocompleteDirectionsHandler(map);
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 }
 
 var opt = {
-               "legend": {
-                  "Vehicle Collision" : "#FF0066",
-                  "Theft from Vehicle" : "#FF9933",
-                  "Theft of Vehicle" : "#99FF99"
-               }
-           };
+           "legend": {
+              "Vehicle Collision" : "#d80019",
+              "Theft from Vehicle" : "#4fcce2",
+              "Theft of Vehicle" : "#000000"
+             }
+         };
 
 
-// Adds a marker to the map and push to the array.
 function addMarker(props){
    var marker = new google.maps.Marker({
      position:props.coords,
@@ -51,12 +69,7 @@ function addMarker(props){
        infoWindow.open(map, marker);
      })
    }
-  //  console.log(props['type_crime']);
   markers.push(marker);
-
-  // var markerCluster = new MarkerClusterer(map, markers,
-  //             {imagePath: 'images/m'});
-  // markerCluster.addMarkers(markers, true);
 }
 
 // Sets the map on all markers in the array.
@@ -173,12 +186,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
   });
 };
 
-let zoom = {
-    coords:{lat: 49.2317,lng: -123.0927},
-    iconImage:'images/cam.png',
-    content:'<h4>Red Light Camera</h4>'
-  }
-
 $(document).ready(function(){
     // Red light camera show button
    $('#red-light-camera-button').click(function(){
@@ -193,32 +200,28 @@ $(document).ready(function(){
        single['content'] = '<h4>Red Light Camera</h4>';
        addMarker(single);
      }
-    //  markerCluster = new MarkerClusterer(map, markers,
-              //  {imagePath: 'images/m'});
    });
 
    // Accident show button
-   $('#accident-button').click(function(){
-     deleteMarkers();
-    //  let hold = window.testList;
-    // console.log(window.accidentList[0]);
-    let hold = window.accidentList;
-    for(var x = 0; x < hold.length; x++){
-      let single = hold[x]
-      single['iconImage'] = 'images/accident.png';
-      single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
-      single['coords']['lat'] = parseFloat(single['coords']['lat']);
-      single['coords']['lng'] = parseFloat(single['coords']['lng']);
-      single['content'] = `Crash Count: ${single.crash_count} | Type:${single.crash_type}`;
-      addMarker(single);
-    }
-    markerCluster = new MarkerClusterer(map, markers, opt);
-   });
+  //  $('#accident-button').click(function(){
+  //    deleteMarkers();
+  //   //  let hold = window.testList;
+  //   // console.log(window.accidentList[0]);
+  //   let hold = window.accidentList;
+  //   for(var x = 0; x < hold.length; x++){
+  //     let single = hold[x]
+  //     single['iconImage'] = 'images/accident.png';
+  //     single['coords'] = {'lat': `${single["latitude"]}`,'lng': `${single["longitude"]}`}
+  //     single['coords']['lat'] = parseFloat(single['coords']['lat']);
+  //     single['coords']['lng'] = parseFloat(single['coords']['lng']);
+  //     single['content'] = `Crash Count: ${single.crash_count} | Type:${single.crash_type}`;
+  //     addMarker(single);
+  //   }
+  //   markerCluster = new MarkerClusterer(map, markers, opt);
+  //  });
   //   markerCluster = new MarkerClusterer(map, markers,
   //             {imagePath: 'images/m'});
   //  });
-
-   // Crime show button
    $('#crime-button').click(function(){
     deleteMarkers();
     let area;
@@ -227,24 +230,6 @@ $(document).ready(function(){
     // if ($("input:checkbox[name='Tov']").is(':checked') && $("input:checkbox[name='Tfv']").is(':checked')){
     //   tempFilter = window.crimeList;
     // }
-    // hold.push(tempFilter);
-    // let basicValues = $("#slider").rangeSlider("values");
-    // console.log(basicValues['min']);
-    // console.log(basicValues['max']);
-    //
-    // let minMonth = basicValues['min'];
-    // let maxMonth = basicValues['max'];
-    // let monthHolder = [];
-    //
-    // for (i = min; i <= max; i++){
-	  //    for(let x = 0; x < testArray.length; x++){
-		//        if (testArray[x] === i){
-		//            result.push(testArray[x])}
-    //          }
-    //        }
-
-
-
 
     if ($("input:checkbox[name='Tov']").is(':checked')) {
       tempFilter = window.crimeList.filter(function (el) {
@@ -267,9 +252,6 @@ $(document).ready(function(){
         hold.push(tempFilter[i]);
       }
     }
-
-
-
     if ($("input:checkbox[name='Dov']").is(':checked')) {
       tempFilter = window.crimeList.filter(function (el) {
         return el.type_crime === "Vehicle Collision"
@@ -282,7 +264,7 @@ $(document).ready(function(){
     }
 
     area = $('#neighbourhood')[0];
-    area = area.options[area.selectedIndex].text;
+    area = area.options[area.selectedIndex].value;
 
     if (area != 'All'){
         hold = hold.filter(function (el) {
@@ -291,8 +273,6 @@ $(document).ready(function(){
     }
 
     let basicValues = $("#slider").rangeSlider("values");
-    console.log(basicValues['min']);
-    console.log(basicValues['max']);
 
     let minMonth = basicValues['min'];
     let maxMonth = basicValues['max'];
@@ -304,10 +284,12 @@ $(document).ready(function(){
          monthHolder.push(hold[x])}
          }
        }
-       console.log(hold);
-    console.log(monthHolder);
+
+
     hold = monthHolder;
     console.log(hold);
+
+    window.crimeEnd = hold;
 
     for(var x = 0; x < hold.length; x++){
       let single = hold[x]
@@ -317,6 +299,9 @@ $(document).ready(function(){
       single['coords']['lng'] = parseFloat(single['coords']['lng']);
       addMarker(single);
     }
+    map.setCenter(neighbourhoods[area]);
+    console.log(neighbourhoods[area]);
+
     markerCluster = new MarkerClusterer(map, markers, opt);
               // {imagePath: 'images/m'});
    });

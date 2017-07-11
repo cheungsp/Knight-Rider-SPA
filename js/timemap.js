@@ -323,6 +323,7 @@ legend.exit().remove();
    });
 
    $('#heat-button').click(function(){
+     console.log(crimeEnd);
      for(let i = 0; i<myArrayOfObjects.length; i++){
        myArrayOfObjects[i]['value'] = 0;
      }
@@ -330,26 +331,26 @@ legend.exit().remove();
      let hold = [];
      let c,day,count;
 
-     if ($("input:checkbox[name='Tov']").is(':checked')) {
-       let a = window.crimeList.filter(function (el) {
-         return el.type_crime === "Theft of Vehicle"
-       });
-       for (let i = 0; i < a.length; i++){
-         hold.push(a[i])
-       }
-     }
-     if ($("input:checkbox[name='Tfv']").is(':checked')) {
-       let a = window.crimeList.filter(function (el) {
-         return el.type_crime === "Theft from Vehicle"
-       });
-       for (let i = 0; i < a.length; i++){
-         hold.push(a[i])
-       }
-     }
-     else {
-       hold = window.crimeList;
-     }
-     let b = hold;
+    //  if ($("input:checkbox[name='Tov']").is(':checked')) {
+    //    let a = window.crimeList.filter(function (el) {
+    //      return el.type_crime === "Theft of Vehicle"
+    //    });
+    //    for (let i = 0; i < a.length; i++){
+    //      hold.push(a[i])
+    //    }
+    //  }
+    //  if ($("input:checkbox[name='Tfv']").is(':checked')) {
+    //    let a = window.crimeList.filter(function (el) {
+    //      return el.type_crime === "Theft from Vehicle"
+    //    });
+    //    for (let i = 0; i < a.length; i++){
+    //      hold.push(a[i])
+    //    }
+    //  }
+    //  else {
+    //    hold = window.crimeList;
+    //  }
+     let b = crimeEnd;
 
     //  let b = window.crimeList;
 
