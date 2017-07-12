@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Cam Finder</title>
+    <title>Knight Rider</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/index.css">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
@@ -30,6 +30,8 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
   </head>
 
+
+
   <body>
     <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -40,7 +42,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Knight (Street) Rider</a>
+      <a class="navbar-brand" href="#">Knight Rider</a>
     </div>
 
 
@@ -53,10 +55,13 @@
         placeholder="Enter a destination location">
         <!-- <button type="submit" class="btn btn-default">Go</button> -->
       </div>
-        <button id="heat-button" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Heat Map</button>
+        <button id="heat-button" type="button" class="btn btn-danger" data-toggle="modal" data-target="#heatMap">Heat Map</button>
 
-        <button id="red-light-camera-button" type="button" class="btn btn-warning" data-target="#myModal">Red Light Cameras</button>
-        <button id="crime-button" type="button" class="btn btn-warning" data-target="#myModal">Show Crimes</button>
+        <button id="heat-score-button" type="button" class="btn btn-info" data-toggle="modal" data-target="#tripAdvisor">Heat Score</button>
+
+        <button id="red-light-camera-button" type="button" class="btn btn-warning">Red Light Cameras</button>
+
+        <button id="crime-button" type="button" class="btn btn-warning">Show Crimes</button>
 
 
 
@@ -95,22 +100,18 @@
         </select>
       </div>
     </form>
-
-      <!-- <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Origin">
-          <input type="text" class="form-control" placeholder="Destination">
-        </div>
-        <button type="submit" class="btn btn-default">Go</button>
-      </form> -->
-
-      <!-- <input id="origin-input" class="controls" type="text"
-      placeholder="Enter an origin location">
-      <input id="destination-input" class="controls" type="text"
-      placeholder="Enter a destination location"> -->
     </div>
   </div>
 </nav>
+
+<!-- DO NOT DELETE  -->
+<div id="loader-wrapper">
+  <div class="loading-container">
+    <div class="spinner"></div>
+      <div class="spinner-center"></div>
+        <div class="loading-text">Loading...</div>
+      </div>
+</div>
 
     <div container="container-fluid">
       <div class="row">
@@ -127,39 +128,49 @@
             <input type="checkbox" name="Tfv" value="Tfv"> Theft from Vehicle
             <br>
             <input type="checkbox" name="Dov" value="Dov"> Vehicle Collision
-            <!-- <br> -->
-            <!-- <input type="checkbox" name="AL" value="AL"> Accident Locations -->
-            <!-- <br> -->
-            <!-- <input type="checkbox" name="PT" value="PT"> Parking Ticket Hot Spots -->
-            <!-- <br> -->
-            <!-- <input type="checkbox" name="RLC" value="RLC"> Red Light Cameras -->
           </form>
           <hr>
 
-          <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"><br> -->
-          <!-- <input id="red-light-camera-button" type="button" value="Red Light Cameras" /><br>
-          <input id="accident-button" type="button" value="Accidents" /><br>
-          <input id="crime-button" type="button" value="Crimes" /><br>
-          <hr> -->
-          <!-- <input onclick="clearMarkers();" type=button value="Hide Markers"><br> -->
           <input onclick="showMarkers();" type=button value="Refresh Map"><br>
           <input onclick="deleteMarkers();" type=button value="Delete Markers"><br>
           <hr>
-          <!-- heatmap buttons -->
-          <!-- <input id="heat-button" type="button" value="HeatMap" /><br> -->
-          <!-- <input id="clear-heat-button" type="button" value="Clear HeatMap" /><br>
-          <hr> -->
+
 
           <input id="router" type="button" value="Route Info" /><br>
 
-          <div class="main_counter_content text-center white-text wow fadeInUp">
+          <div id="tripAdvisor" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content modal-box">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h2 class="modal-title text-center">Trip Advisor Score</h2>
+                </div>
+                  <div class="modal-body">
+                    <div class="single_counter p-y-2 m-t-1 text-center">
+                      <h2 id="rlc" class="statistic-counter"></h2>
+                      <p>Red Light Camera Counter</p>
+                      <h2 id="ac" class="statistic-counter"></h2>
+                      <p>Accidents Counter</p>
+                      <div class="third circle">
+                        <strong></strong>
+                        <span>Heat-Score<br> Value</span>
+                      </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- <div class="main_counter_content text-center white-text wow fadeInUp">
             <h1>Trip Advisor:</h1>
 
             <div class="single_counter p-y-2 m-t-1">
               <h2 class="statistic-counter">2</h2>
               <p>Red Light Camera Counter</p>
-            </div>
-            <div class="single_counter p-y-2 m-t-1">
               <h2 class="statistic-counter">32</h2>
               <p>Accidents Counter</p>
             </div>
@@ -167,47 +178,11 @@
               <h2 class="statistic-counter">34</h2>
               <p>Heat-Score Counter / 100 </p>
             </div>
-            <button id="heat-score-button" type="button" class="btn btn-info" data-target="#myModal">Calculate</button>
-          </div>
-
-          <!-- <div class="form-group">
-            <label for="neighbourhood">Neighbourhood:</label>
-            <select class="form-control" id="neighbourhood">
-              <option value="All">All</option>
-              <option value="arbutusridge">Arbutus Ridge</option>
-              <option value="downtown">Downtown</option>
-              <option value="dunbarsouthlands">Dunbar-Southlands</option>
-              <option value="fairview">Fairview</option>
-              <option value="grandviewwoodland">Grandview-Woodland</option>
-              <option value="hastingssunrise">Hastings-Sunrise</option>
-              <option value="kensingtoncedarcottage">Kensington-Cedar Cottage</option>
-              <option value="kerrisdale">Kerrisdale</option>
-              <option value="killarney">Killarney</option>
-              <option value="kitsilano">Kitsilano</option>
-              <option value="marpole">Marpole</option>
-              <option value="mountpleasant">Mount Pleasant</option>
-              <option value="musqueam">Musqueam</option>
-              <option value="oakridge">Oakridge</option>
-              <option value="renfrewcollingwood">Renfrew-Collingwood</option>
-              <option value="rileypark">Riley Park</option>
-              <option value="shaughnessy">Shaughnessy</option>
-              <option value="southcambie">South Cambie</option>
-              <option value="stanleypark">Stanley Park</option>
-              <option value="strathcona">Strathcona</option>
-              <option value="sunset">Sunset</option>
-              <option value="victoriafraserview">Victoria-Fraserview</option>
-              <option value="westend">West End</option>
-              <option value="westpointgrey">West Point Grey</option>
-            </select>
           </div> -->
-          <!-- Trigger the modal with a button -->
 
-
-
-
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="heatMap" class="modal fade" role="dialog">
       <div class="modal-dialog">
-        <div class="modal-content modal-box">
+        <div class="modal-content heatmap-modal-box">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2 class="modal-title text-center">Heat Map</h2>
@@ -218,9 +193,9 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-
       </div>
     </div>
+
         </div>
         </div>
 
@@ -260,6 +235,7 @@
         </section>
         </div>
       </div> -->
+
   </div>
 
     <script type="text/javascript" src="js/index.js"></script>
@@ -278,6 +254,8 @@
     <script src="vendor/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="vendor/jQRangeSlider-5.7.2/jQRangeSlider-min.js"></script>
     <script src="vendor/jQRangeSlider-5.7.2/jQDateRangeSlider-min.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="js/circle-progress.js"></script>
 
     <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBv4NtDTdhX6O4lXj3uNW21Y6CIRPE9x5w&libraries=geometry,places,visualization&callback=initMap">

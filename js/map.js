@@ -46,14 +46,26 @@ function initMap() {
 }
 
 var opt = {
-           "legend": {
-              "Vehicle Collision" : "#0c0cf2",
-              "Theft from Vehicle" : "#bc01b9",
-              "Stolen Vehicle" : "#000000",
-              "Red Light Camera" : "#ff2121"
-              // "Accident" : "#705c2c"
-            }
-         };
+ "legend": {
+    "Vehicle Collision" : "#0c0cf2",
+    "Theft from Vehicle" : "#bc01b9",
+    "Stolen Vehicle" : "#000000"
+    // "Red Light Camera" : "#ff2121"
+    // "Accident" : "#705c2c"
+  },
+  'zoomOnClick':false,
+
+};
+
+var optRoute={
+  "legend": {
+     "Vehicle Collision" : "#0c0cf2",
+     "Red Light Camera" : "#ff2121"
+     // "Accident" : "#705c2c"
+   },
+  'minimumClusterSize':2,
+  'url': 'images/m'
+}
 
 
 function addMarker(props){
@@ -203,7 +215,11 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 };
 
 $(document).ready(function(){
+  let rlCam = 0;
+  let aCount = 0;
   $('#router').click(function(){
+    rlCam = 0;
+    aCount = 0;
     let legs = window.routeLine;
     polyline = new google.maps.Polyline({
       path: [],
@@ -228,7 +244,6 @@ $(document).ready(function(){
       let d = new google.maps.LatLng(`${hold[i]['latitude']}`, `${hold[i]['longitude']}`);
       redlightcams.push(d);
     }
-    let count = 0;
     let zoom = {
       coords:{lat: 49.2317,lng: -123.0927},
       iconImage:'images/cam.png',
@@ -238,6 +253,7 @@ $(document).ready(function(){
     for (let x = 0; x < redlightcams.length; x++){
       if (google.maps.geometry.poly.isLocationOnEdge(redlightcams[x], polyline, 10e-04)) {
         // count++;
+        rlCam++;
         let latitude = redlightcams[x].lat();
         let longitude = redlightcams[x].lng();
         let zoom = {
@@ -254,8 +270,6 @@ $(document).ready(function(){
     let accHold = window.crimeList.filter(function (el) {
       return el.type_crime === "Vehicle Collision"
     });
-    console.log('accHold');
-    console.log(accHold);
 
     let accidents = [];
     let accidentsToShow = [];
@@ -266,13 +280,10 @@ $(document).ready(function(){
       d['hour'] = accHold[i]['hour'];
       accidents.push(d);
     }
-    console.log('accidents');
-    console.log(accidents);
 
     for (let x = 0; x < accidents.length; x++){
       if (google.maps.geometry.poly.isLocationOnEdge(accidents[x], polyline, 10e-05)) {
-        count++;
-        // console.log(accidents[x]);
+        aCount++;
         let latitude = accidents[x].lat();
         let longitude = accidents[x].lng();
         let crashCount = accidents[x]['crash_count'];
@@ -292,11 +303,11 @@ $(document).ready(function(){
     for (let a = 0; a < accidentsToShow.length; a++){
       addMarker(accidentsToShow[a]);
     }
-    markerCluster = new MarkerClusterer(map, markers, opt);
+    markerCluster = new MarkerClusterer(map, markers, optRoute);
 
 
-    console.log('count: ' + count);
-    console.log(accidentsToShow);
+    // console.log('count: ' + count);
+    // console.log(accidentsToShow);
     window.crimeEnd = accidentsToShow;
 
   });
@@ -319,8 +330,6 @@ $(document).ready(function(){
    // Accident show button
    $('#accident-button').click(function(){
      deleteMarkers();
-    //  let hold = window.testList;
-    // console.log(window.accidentList[0]);
     let hold = window.accidentList;
     for(var x = 0; x < hold.length; x++){
       let single = hold[x]
@@ -333,17 +342,13 @@ $(document).ready(function(){
     }
     markerCluster = new MarkerClusterer(map, markers, opt);
    });
-  //   markerCluster = new MarkerClusterer(map, markers,
-  //             {imagePath: 'images/m'});
-  //  });
+
    $('#crime-button').click(function(){
     deleteMarkers();
     let area;
     let tempFilter;
     let hold = [];
-    // if ($("input:checkbox[name='Tov']").is(':checked') && $("input:checkbox[name='Tfv']").is(':checked')){
-    //   tempFilter = window.crimeList;
-    // }
+
 
     if ($("input:checkbox[name='Tov']").is(':checked')) {
       tempFilter = window.crimeList.filter(function (el) {
@@ -417,7 +422,6 @@ $(document).ready(function(){
     console.log(neighbourhoods[area]);
 
     markerCluster = new MarkerClusterer(map, markers, opt);
-              // {imagePath: 'images/m'});
    });
 
 
@@ -428,29 +432,37 @@ $(document).ready(function(){
     range: {min: 1},
     step: 1,
     formatter: function(val) {
-        // var m = months.rangeSlider("values").min;
         return (monthList[val-1]);
       }
     })
 
     $('#heat-score-button').click(function(){
-      // $('.statistic-counter').removeClass("visibility");
-      // $('.statistic-counter').toggle();
-      // $('.statistic-counter').fadeTo(1);
-      $('.statistic-counter').css({ opacity: 1 });
+      function calcHSC(rlc, ac){
+        return (rlc/14 + (ac/1000)).toFixed(2);
+      }
+
+      $('#rlc')[0].innerHTML = rlCam;
+      $('#ac')[0].innerHTML = aCount;
       jQuery('.statistic-counter').counterUp({
-                    delay: 10,
-                    time: 2000
-                })
-              });
+            delay: 10,
+            time: 1000
+        });
+      $('.third.circle').circleProgress({
+        value: calcHSC(rlCam, aCount),
+        fill: {gradient: [['#ea3535', .5], ['#ea3535', .5]], gradientAngle: Math.PI / 4}
+        }).on('circle-animation-progress', function(event, progress, stepValue) {
+        $(this).find('strong').text(stepValue.toFixed(2).substr(1));
+        });
+
+    });
+    //  DO NOT DELETE
+    $('#loader-wrapper').delay(3000).fadeOut('slow');
+
  });
 
 
 
 
-// selecting dropdown menu neghiborhood
-// e = $('#neighbourhood')[0]
-// strUser = e.options[e.selectedIndex].text;
 
 
 
