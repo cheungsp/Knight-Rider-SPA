@@ -1,6 +1,127 @@
 html {
-  font-family: Helvetica, sans-serif;
-  font-weight: 100;
+  /*font-family: Helvetica, sans-serif;*/
+  /*font-weight: 100;*/
+  /*font-family: Arial;*/
+}
+/*nav bar*/
+
+.navbar-brand {
+  position: relative;
+  z-index: 2;
+  font-size: 25px;
+  font-family: Arial;
+  right: 10px;
+  /*float:left;*/
+}
+
+.navbar-nav.navbar-right .btn {
+  position: relative;
+  z-index: 2;
+  padding: 4px 20px;
+  margin: 10px auto;
+}
+
+.navbar .navbar-collapse {
+  position: relative;
+}
+.navbar-right{
+  font-size: 14px;
+  font-family: Arial;
+}
+.navbar .navbar-collapse .navbar-right > li:last-child {
+  padding-left: 22px;
+}
+.navbar-left{
+  font-size: 14px;
+  font-family: Arial;
+}
+.navbar .navbar-collapse .navbar-left > li:first-child {
+  padding-left: 50px;
+}
+
+.navbar .nav-collapse {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding-right: 120px;
+  padding-left: 80px;
+  width: 100%;
+  padding-bottom: 3px;
+}
+
+
+.navbar.navbar-default .nav-collapse {
+  background-color: #f8f8f8;
+}
+
+.navbar.navbar-inverse .nav-collapse {
+  background-color: #222;
+}
+
+.navbar .nav-collapse .navbar-form {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.nav-collapse>li {
+  float: right;
+}
+
+.btn.btn-circle { border-radius: 50px; }
+.btn.btn-outline { background-color: transparent; }
+
+@media screen and (max-width: 767px) {
+    .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 15px; padding-right: 15px; }
+
+    .navbar .nav-collapse { margin: 7.5px auto; padding: 0; }
+    .navbar .nav-collapse .navbar-form { margin: 0; }
+    .nav-collapse>li { float: none; }
+}
+
+/*SEARCH*/
+.neighbourhood-selector{
+
+}
+#neighbourhood{
+  margin-top: 10px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+#red-light-camera-button:hover{
+  height: 50px;
+  border-bottom: #a30008 3px solid;
+}
+#delete-markers:hover{
+  height: 50px;
+  border-bottom: #1ecc12 3px solid;
+}
+.heat-button:hover{
+  height: 50px;
+  border-bottom: #ff0000 3px solid;
+}
+#crime-button:hover{
+  height: 50px;
+  border-bottom: #1726ef 3px solid;
+}
+#router:hover{
+  height: 50px;
+  border-bottom: #1ecc12 3px solid;
+}
+#heat-score-button:hover{
+  height: 50px;
+  border-bottom: #a5a500 3px solid;
+}
+
+/*nav bar*/
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
 }
 
 /*Loading Screen*/
@@ -114,15 +235,6 @@ html {
   padding-left: 100px;
 }
 
-/*SEARCH*/
-.neighbourhood-selector{
-  width: 100px;
-  margin-top: 10px;
-}
-.neighbourhood-label{
-}
-
-
 /* MODAL */
 .heatmap-modal-box{
   width: 1100px;
@@ -151,10 +263,11 @@ html {
  font-family: Roboto;
  font-size: 15px;
  font-weight: 300;
- /*margin-left: 12px;*/
  padding: 0 11px 0 13px;
  text-overflow: ellipsis;
  width: 200px;
+ margin-top: 10px;
+ margin-left: 5px;
 }
 
 #origin-input:focus,

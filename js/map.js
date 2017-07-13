@@ -48,11 +48,13 @@ function initMap() {
 var opt = {
  "legend": {
     "Vehicle Collision" : "#0c0cf2",
-    "Theft from Vehicle" : "#bc01b9",
+    // "Theft from Vehicle" : "#bc01b9",
+    "Theft from Vehicle" : "#22c601",
     "Stolen Vehicle" : "#000000"
     // "Red Light Camera" : "#ff2121"
     // "Accident" : "#705c2c"
   },
+  'minimumClusterSize':2,
   'zoomOnClick':false,
 
 };
@@ -218,6 +220,7 @@ $(document).ready(function(){
   let rlCam = 0;
   let aCount = 0;
   $('#router').click(function(){
+    deleteMarkers()
     rlCam = 0;
     aCount = 0;
     let legs = window.routeLine;
@@ -453,10 +456,12 @@ $(document).ready(function(){
         }).on('circle-animation-progress', function(event, progress, stepValue) {
         $(this).find('strong').text(stepValue.toFixed(2).substr(1));
         });
-
+    });
+    $('#knight').click(function(){
+      $('#crime-dropdown').fadeToggle()
     });
     //  DO NOT DELETE
-    $('#loader-wrapper').delay(3000).fadeOut('slow');
+    // $('#loader-wrapper').delay(3000).fadeOut('slow');
 
  });
 

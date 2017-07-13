@@ -322,7 +322,7 @@ legend.exit().remove();
      heatmapChart(d);
    });
 
-   $('#heat-button').click(function(){
+   $('.heat-button').click(function(){
      console.log(crimeEnd);
      for(let i = 0; i<myArrayOfObjects.length; i++){
        myArrayOfObjects[i]['value'] = 0;
@@ -381,18 +381,6 @@ legend.exit().remove();
     for (let i = 0; i<b.length; i++){
         b[i]['hour'] = (b[i]['hour'] - 1);
     }
-      // for (let i = 1; i<8; i++){
-      //     for(let x = 1; x < 25; x++){
-      //         result = (_.where(b, {dayofweek: i, hour:x})).length;
-      // 		if(i != 0){
-      // 			count = (((i-1)*24) + (x-1));
-      //         }
-      // 		else{
-      // 			count = (x-1);
-      //         }
-      // 	myArrayOfObjects[count]['value'] = result;
-      //  }
-      // }
    heatmapChart(myArrayOfObjects);
   //  console.log(myArrayOfObjects);
  });
@@ -404,96 +392,3 @@ legend.exit().remove();
    heatmapChart(myArrayOfObjects);
    console.log(myArrayOfObjects);
  });
-//
-//    setTimeout(function () {
-//    let b = window.crimeList
-//    let c,day,count;
-//    for (let i = 0; i<b.length; i++){
-//        c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
-//        day = (moment(c).day())+1;
-//        b[i]['dayofweek'] = day;
-//        b[i]['hour'] = (b[i]['hour'] + 1)
-//    }
-//
-//    for (let i = 1; i<8; i++){
-//        for(let x = 1; x < 25; x++){
-//            result = (_.where(b, {dayofweek: i, hour:x})).length;
-//    		if(i != 1){
-//    			count = (((i-1)*24) + (x-1));
-//            }
-//    		else{
-//    			count = (x-1);
-//            }
-//    	myArrayOfObjects[count]['value'] = result;
-//     }
-//    }
-// heatmapChart(myArrayOfObjects);
-// }, 10000);
-
-
-  /*
-let hold = window.crimeList.splice(1,10);
-
-let c = `${b.year}-${b.month}-${b.day}`
-moment(c).day()
-(moment(c).day())+
-
-c = `${b[0]['year']}-${b[0]['month']}-${b[0]['day']}`;
-(moment(c).day())+1
-
-var result = myArrayOfObjects.filter(function( obj ) {
-  return (obj.day === 1 && obj.hour === 2);
-});
-result[0]['value']++
-
-
-for(let i = 0; i<hold.length; i++){
-  result = myArrayOfObjects.filter(function( obj ) {
-  return (obj.day === date && obj.hour === hold[i]['hour']);
-});
-}
-
-
-let b = window.crimeList
-b = b.splice(1,10)
-let c,day,count;
-for (let i = 0; i<b.length; i++){
-    c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
-    day = (moment(c).day())+1;
-    b[i]['dayofweek'] = day;
-    b[i]['hour'] = (b[i]['hour'] + 1)
-}
-
-
-result = (_.where(b, {dayofweek: 6, hour:0})).length
-
-count = (((day-1)*24) + (hour-1));
-
-for (let i = 0; i<7; i++){
-    for(let x = 0; x < 24; x++){
-        result = (_.where(b, {dayofweek: i, hour:x})).length
-        console.log(`day: ${i}, hour:${x} -> result:${result}`);
-    }
-}
-
-for (let i = 1; i<8; i++){
-    for(let x = 1; x < 25; x++){
-        result = (_.where(b, {dayofweek: i, hour:x})).length;
-		if(i != 1){
-			count = (((i-1)*24) + (x-1));
-        }
-		else{
-			count = (x-1);
-        }
-	myArrayOfObjects[count]['value'] = result;
-}
-}
-
-
-
-
-}
-
-
-
-  */
