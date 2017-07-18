@@ -50,7 +50,7 @@ var opt = {
     "Vehicle Collision" : "#0c0cf2",
     // "Theft from Vehicle" : "#bc01b9",
     "Theft from Vehicle" : "#22c601",
-    "Stolen Vehicle" : "#000000"
+    "Stolen Vehicle" : "#ff3399"
     // "Red Light Camera" : "#ff2121"
     // "Accident" : "#705c2c"
   },
@@ -120,6 +120,9 @@ function deleteMarkers() {
 }
 
 function removeLine(){
+  deleteMarkers();
+  $('#origin-input')[0].value = '';
+  $('#destination-input')[0].value = '';
   map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
     center: {lat: 49.2427, lng: -123.1207},
@@ -128,6 +131,7 @@ function removeLine(){
 
   new AutocompleteDirectionsHandler(map);
 }
+
 function deleteClusters(){
   if (typeof markerCluster !== 'undefined'){
     markerCluster.clearMarkers();
@@ -201,7 +205,6 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     return;
   }
   var me = this;
-
   this.directionsService.route({
     origin: {'placeId': this.originPlaceId},
     destination: {'placeId': this.destinationPlaceId},
@@ -307,10 +310,6 @@ $(document).ready(function(){
       addMarker(accidentsToShow[a]);
     }
     markerCluster = new MarkerClusterer(map, markers, optRoute);
-
-
-    // console.log('count: ' + count);
-    // console.log(accidentsToShow);
     window.crimeEnd = accidentsToShow;
 
   });
@@ -406,11 +405,7 @@ $(document).ready(function(){
          monthHolder.push(hold[x])}
          }
        }
-
-
     hold = monthHolder;
-    console.log(hold);
-
     window.crimeEnd = hold;
 
     for(var x = 0; x < hold.length; x++){
@@ -422,8 +417,6 @@ $(document).ready(function(){
       addMarker(single);
     }
     map.setCenter(neighbourhoods[area]);
-    console.log(neighbourhoods[area]);
-
     markerCluster = new MarkerClusterer(map, markers, opt);
    });
 
@@ -458,10 +451,11 @@ $(document).ready(function(){
         });
     });
     $('#knight').click(function(){
-      $('#crime-dropdown').fadeToggle()
+      $('#crime-dropdown').fadeToggle();
+      removeLine();
     });
-    //  DO NOT DELETE
-    // $('#loader-wrapper').delay(3000).fadeOut('slow');
+    //  DO NOT DELETE | loading screen
+    $('#loader-wrapper').delay(3000).fadeOut('slow');
 
  });
 

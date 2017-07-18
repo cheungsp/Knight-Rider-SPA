@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Knight Rider</title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/dropdowns-enhancement.css">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -14,19 +12,6 @@
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-
-    <!-- <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/map.js"></script>
-    <script type="text/javascript" src="js/moment.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script type="text/javascript" src="js/markerclusterer.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-    google.load('visualization', '1.0', {'packages':['corechart']});
-    // google.setOnLoadCallback(drawChart);
-     </script> -->
-    <!-- <script src="http://d3js.org/d3.v3.js"></script> -->
-    <!-- <script type="text/javascript" src="js/timemap.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
   </head>
@@ -34,71 +19,7 @@
 
 
   <body>
-    <!-- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" onclick="removeLine()" href="#">Knight Rider</a>
-    </div>
-
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="form-inline">
-      <div class="form-group">
-        <input id="origin-input" class="controls" type="text"
-        placeholder="Enter an origin location">
-        <input id="destination-input" class="controls" type="text"
-        placeholder="Enter a destination location">
-      </div>
-        <button id="heat-button" type="button" class="btn btn-danger" data-toggle="modal" data-target="#heatMap">Heat Map</button>
-
-        <button id="heat-score-button" type="button" class="btn btn-info" data-toggle="modal" data-target="#tripAdvisor">Heat Score</button>
-
-        <button id="red-light-camera-button" type="button" class="btn btn-warning">Red Light Cameras</button>
-
-        <button id="crime-button" type="button" class="btn btn-warning navbar-btn">Show Crimes</button>
-        <button onclick="deleteMarkers()" type="button" class="btn btn-danger">Delete Markers</button>
-
-      <label class="neighbourhood-label" for="neighbourhood">Neighbourhood:</label>
-      <div class="form-group neighbourhood-selector">
-        <select class="form-control" id="neighbourhood">
-          <option value="All">All</option>
-          <option value="arbutusridge">Arbutus Ridge</option>
-          <option value="downtown">Downtown</option>
-          <option value="dunbarsouthlands">Dunbar-Southlands</option>
-          <option value="fairview">Fairview</option>
-          <option value="grandviewwoodland">Grandview-Woodland</option>
-          <option value="hastingssunrise">Hastings-Sunrise</option>
-          <option value="kensingtoncedarcottage">Kensington-Cedar Cottage</option>
-          <option value="kerrisdale">Kerrisdale</option>
-          <option value="killarney">Killarney</option>
-          <option value="kitsilano">Kitsilano</option>
-          <option value="marpole">Marpole</option>
-          <option value="mountpleasant">Mount Pleasant</option>
-          <option value="musqueam">Musqueam</option>
-          <option value="oakridge">Oakridge</option>
-          <option value="renfrewcollingwood">Renfrew-Collingwood</option>
-          <option value="rileypark">Riley Park</option>
-          <option value="shaughnessy">Shaughnessy</option>
-          <option value="southcambie">South Cambie</option>
-          <option value="stanleypark">Stanley Park</option>
-          <option value="strathcona">Strathcona</option>
-          <option value="sunset">Sunset</option>
-          <option value="victoriafraserview">Victoria-Fraserview</option>
-          <option value="westend">West End</option>
-          <option value="westpointgrey">West Point Grey</option>
-        </select>
-      </div>
-    </form>
-    </div>
-  </div>
-</nav> -->
-<!-- Second navbar for sign in -->
+    <!-- Second navbar for sign in -->
     <nav class="navbar navbar-default">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -116,8 +37,8 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-2">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#" id="red-light-camera-button">Red Light Cameras</a></li>
-            <li><a href="#" id="delete-markers" onclick="deleteMarkers()">Delete Markers</a></li>
-            <li><a href="#" class="heat-button" data-toggle="modal" data-target="#heatMap" >Heat Map</a></li>
+            <li><a href="#" class="delete-markers" onclick="deleteMarkers()">Delete Markers</a></li>
+            <li><a href="#" class="heat-button" data-toggle="modal" data-target="#heatMap" >Time Chart</a></li>
           <li id="crime-dropdown">
             <span class="btn-group">
               <button class="btn btn-default">Crime</button>
@@ -170,23 +91,8 @@
                 </li>
                 <li><a href="#" id="crime-button">Show Crimes</a></li>
 
-                <!-- <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Neighbourhoods <span class="caret"></span></a> -->
-                  <!-- <div class="form-group neighbourhood-selector"> -->
-              <!-- </div> -->
-          <!-- <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul> -->
-
-
             <li>
-              <a id="knight" class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">Ride or Die</a>
+              <a id="knight" class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">🚔  &nbsp</a>
             </li>
           </ul>
 
@@ -196,42 +102,47 @@
               <li class="form-group"><input class="form-control" id="destination-input" placeholder="Destination"/></li>
               <li><a href="#" id="router">Route Info</a></li>
               <li><a href="#" id="heat-score-button" data-toggle="modal" data-target="#tripAdvisor">Heat Score</a></li>
-              <li><a href="#" class="heat-button" data-toggle="modal" data-target="#heatMap" >Heat Map</a></li>
+              <li><a href="#" class="heat-button" data-toggle="modal" data-target="#heatMap" >Time Chart</a></li>
+              <li><a href="#" class="delete-markers" onclick="removeLine()">New Trip</a></li>
             </ul>
-
-            <!-- <form class="navbar-form navbar-left form-inline" role="form">
-              <div class="form-group">
-                <input class="form-control" id="origin-input" placeholder="Origin" autofocus/>
-              </div>
-              <div class="form-group">
-                <input class="form-control" id="destination-input" placeholder="Destination"/>
-              </div>
-                <li><a href="#" id="red-light-camera-button">Red Light Cameras</a></li>
-                <li><a href="#" id="delete-markers" onclick="deleteMarkers()">Delete Markers</a></li>
-                <li><a href="#" id="heat-button" data-toggle="modal" data-target="#heatMap" >Heat Map</a></li>
-              <button type="submit" class="btn btn-success">Sign in</button>
-              <button id="router" type="button" class="btn btn-info">Route Info</button>
-              <button id="heat-score-button" type="button" class="btn btn-danger" data-toggle="modal" data-target="#tripAdvisor">Heat Score</button>
-              <button id="heat-button" type="button" class="btn btn-danger" data-toggle="modal" data-target="#heatMap">Time Overview</button>
-            </form> -->
           </div>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 
-<!-- DO NOT DELETE  -->
-<!-- <div id="loader-wrapper">
-  <div class="loading-container">
-    <div class="spinner"></div>
-      <div class="spinner-center"></div>
-        <div class="loading-text">Loading...</div>
-      </div>
-</div> -->
+  <div id="loader-wrapper">
+    <div class="loading-container">
+      <div class="spinner"></div>
+        <div class="spinner-center"></div>
+          <div class="loading-text">Loading...</div>
+        </div>
+  </div>
 
     <div container="container">
       <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2 text-center">
+          <p class="info-bar">Clicking the 🚔  &nbsp button will toggle between route-danger and neighbourhood query mode <br> <br>
+            <h3>Route-Danger Mode:</h3>
+            <ul class="info-bar">
+              <li>Enter Origin and Destination</li>
+              <li>Press Route Info to display red light cameras and accident hot spots along the route</li>
+              <li>Press Heat Score to display info and heat score rating</li>
+              <li>Press Time Chart to get visual representation of when the accidents happen</li>
+              <li>Press New Trip to query a new route</li>
+            </ul>
+            <br>
+            <h3>Neighbourhood Query Mode</h3>
+            <ul class='info-bar'>
+              <li>Select a neighbourhood or all to query from <br> (Querying from all will take some time to load markers)</li>
+              <li>Select one or more crimes to display</li>
+              <li>Drag month selector to choose time frame</li>
+              <li>Press Show Crimes to display markers on map</li>
+              <li>Press Time Chart to get visual representation of when the crimes happen </li>
+            </ul>
+          </p>
 
-        <div class="col-sm-11 col-md-10 col-lg-10 col-lg-offset-1 col-md-offset-1 map-holder">
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-9 map-holder">
           <div id="slider"></div>
           <div id="map"></div>
 
@@ -240,7 +151,7 @@
               <div class="modal-content heatmap-modal-box">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h2 class="modal-title text-center">Heat Map</h2>
+                  <h2 class="modal-title text-center">Time Chart</h2>
                 </div>
                   <div id='chart' class="modal-body">
                 </div>
@@ -256,17 +167,17 @@
               <div class="modal-content modal-box">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h2 class="modal-title text-center">Trip Advisor Score</h2>
+                  <h2 class="modal-title text-center">Trip Advisor</h2>
                 </div>
                   <div class="modal-body">
                     <div class="single_counter p-y-2 m-t-1 text-center">
                       <h2 id="rlc" class="statistic-counter"></h2>
-                      <p>Red Light Camera Counter</p>
+                      <p class='heat-info'>Red Light Camera Counter</p>
                       <h2 id="ac" class="statistic-counter"></h2>
-                      <p>Accidents Counter</p>
+                      <p class='heat-info'>Accidents Counter</p>
                       <div class="third circle">
                         <strong></strong>
-                        <span>Heat-Score<br> Value</span>
+                      <p class='heat-info'>Heat-Score Rating</p>
                       </div>
                   </div>
                 </div>
@@ -274,43 +185,10 @@
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
-
-      <!-- <div class="row">
-        <div class="col-sm-10 col-md-10 col-lg-10">
-          <section id="counter" class="counter">
-            <div class="main_counter_area">
-                <div class="overlay p-y-3">
-                    <div class="container">
-                        <div class="row">
-                            <div class="main_counter_content text-center white-text wow fadeInUp">
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                        <i class="fa fa-heart m-b-1"></i>
-                                        <h2 class="statistic-counter"></h2>
-                                        <p>Red Light Camera Counter</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                        <i class="fa fa-check m-b-1"></i>
-                                        <h2 class="statistic-counter"></h2>
-                                        <p>Accident Counter</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        </div>
-      </div> -->
-
   </div>
 
     <script type="text/javascript" src="js/index.js"></script>

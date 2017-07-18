@@ -7,24 +7,8 @@ var margin = { top: 50, right: 0, bottom: 100, left: 30 },
   colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
   days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
   times = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12p", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p", "12p"];
-  // datasets = ["data.tsv", "data2.tsv"];
   datasets = ["data.tsv"];
   // datasets = 'file:///Users/Spencer/codecore/final%20project/mapSPA/data.tsv';
-
-  // d3.csv("accidents1.csv", function (myArrayOfObjects){
-  //   myArrayOfObjects.forEach(function (d){
-  //     console.log(d)
-  //   })
-  // })
-
-  // setTimeout(function () {
-  //   // console.log(window.crimeList);
-  //   let a = window.crimeList.filter(function (el) {
-  //     return el.type_crime === "Stolen Vehicle"
-  //   });
-  //   console.log(a);
-  // }, 5000);
-
 
 var svg = d3.select("#chart").append("svg")
   .attr("width", width + margin.left + margin.right)
@@ -52,14 +36,7 @@ var timeLabels = svg.selectAll(".timeLabel")
   .attr("transform", "translate(" + gridSize / 2 + ", -6)")
   .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
 
-// var myArrayOfObjects = [
-//   {day: 1, hour: 1, value: 30},
-//   {day: 1, hour: 2, value: 33},
-//   {day: 1, hour: 3, value: 12},
-//   {day: 1, hour: 4, value: 7},
-//   {day: 1, hour: 5, value: 90},
-//   {day: 1, hour: 6, value: 37}
-// ];
+
 var myArrayOfObjects = [
   {day: 1, hour: 1, value: 0},
   {day: 1, hour: 2, value: 0},
@@ -239,18 +216,6 @@ var myArrayOfObjects = [
 
 
 var heatmapChart = function(data) {
-// var heatmapChart = function(tsvFile) {
-//   d3.tsv(tsvFile,
-//   function(d) {
-//     return {
-//       day: +d.day,
-//       hour: +d.hour,
-//       value: +d.value
-//     };
-//   },
-// function(error, data) {
-// let a = moment('2016-06-16');
-// console.log(a.day());
 
 var colorScale = d3.scale.quantile()
     .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
@@ -258,7 +223,6 @@ var colorScale = d3.scale.quantile()
 
 var cards = svg.selectAll(".hour")
     .data(data, function(d) {return d.day+':'+d.hour;});
-    // .data(data, function(d) {return d.day+':'+d.hour+':'+d.value;});
 
 cards.append("title");
 
@@ -272,10 +236,6 @@ cards.enter().append("rect")
     .attr("height", gridSize)
     .style("fill", colors[0]);
 
-// for(let i = 0; i < cards.length; i++){
-  // console.log(cards[i]);
-  // cards[i].style("fill", colors[3]);
-// }
 
 cards.transition().duration(1000)
               .style("fill", function(d) { return colorScale(d.value); });
@@ -307,8 +267,6 @@ legend.exit().remove();
     // });
   };
 
-// heatmapChart(datasets[0]);
-// heatmapChart(myArrayOfObjects);
 
  var datasetpicker = d3.select("#dataset-picker").selectAll(".dataset-button")
    .data(datasets);
@@ -330,37 +288,12 @@ legend.exit().remove();
 
      let hold = [];
      let c,day,count;
-
-    //  if ($("input:checkbox[name='Tov']").is(':checked')) {
-    //    let a = window.crimeList.filter(function (el) {
-    //      return el.type_crime === "Stolen Vehicle"
-    //    });
-    //    for (let i = 0; i < a.length; i++){
-    //      hold.push(a[i])
-    //    }
-    //  }
-    //  if ($("input:checkbox[name='Tfv']").is(':checked')) {
-    //    let a = window.crimeList.filter(function (el) {
-    //      return el.type_crime === "Theft from Vehicle"
-    //    });
-    //    for (let i = 0; i < a.length; i++){
-    //      hold.push(a[i])
-    //    }
-    //  }
-    //  else {
-    //    hold = window.crimeList;
-    //  }
      let b = crimeEnd;
-
-    //  let b = window.crimeList;
-
       for (let i = 0; i<b.length; i++){
           c = `${b[i]['year']}-${b[i]['month']}-${b[i]['day']}`;
-          // day = (moment(c).day())+1;
           day = (moment(c).day());
           b[i]['dayofweek'] = day;
           b[i]['hour'] = (b[i]['hour'] + 1)
-          // b[i]['hour'] = (b[i]['hour'])
       }
 
     for (let i = 0; i<7; i++){
@@ -382,7 +315,6 @@ legend.exit().remove();
         b[i]['hour'] = (b[i]['hour'] - 1);
     }
    heatmapChart(myArrayOfObjects);
-  //  console.log(myArrayOfObjects);
  });
 
  $('#clear-heat-button').click(function(){

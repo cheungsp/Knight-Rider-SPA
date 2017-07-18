@@ -12,6 +12,7 @@ html {
   font-family: Arial;
   right: 10px;
   /*float:left;*/
+  margin-left: -180px !important;
 }
 
 .navbar-nav.navbar-right .btn {
@@ -96,7 +97,7 @@ html {
   height: 50px;
   border-bottom: #a30008 3px solid;
 }
-#delete-markers:hover{
+.delete-markers:hover{
   height: 50px;
   border-bottom: #1ecc12 3px solid;
 }
@@ -110,7 +111,7 @@ html {
 }
 #router:hover{
   height: 50px;
-  border-bottom: #1ecc12 3px solid;
+  border-bottom: #1726ef 3px solid;
 }
 #heat-score-button:hover{
   height: 50px;
@@ -213,6 +214,11 @@ html {
   color: #aaa;
   margin-top: 12px;
 }
+
+.heat-info{
+  font-size: 18px;
+  font-family: Arial;
+}
 /* heatscore circle*/
 * {
   font-family: inherit;
@@ -311,38 +317,8 @@ rect.bordered {
   fill: #000;
 }
 
-/*.single_counter{
-    background: rgba(236, 72, 72, 0.5);
-    color: #fff;
+/*Side Info Bar*/
+.info-bar {
+  font-size: 16px;
+  font-family: Arial;
 }
-.single_counter{
-    font-size:36px;
-}*/
-.statistic-counter{
-  /*visibility: hidden;*/
-  /*font-weight: bold;*/
-  /*opacity: 100%;*/
-  /*opacity: 0;*/
-}
-
-/*.p-y-2 {
-    padding-top: 28px;
-    padding-bottom: 28px;
-}
-.p-y-3 {
-    padding-top: 45px;
-    padding-bottom: 45px;
-}
-.m-b-1 {
-    margin-bottom: 18px;
-}
-.m-t-1 {
-    margin-top: 18px;
-}*/
-/*.main_counter_area .main_counter_content .single_counter{
-    background: rgba(236, 72, 72, 0.5);
-        color: #fff;
-}
-.main_counter_area .main_counter_content .single_counter i{
-    font-size:36px;
-}*/
