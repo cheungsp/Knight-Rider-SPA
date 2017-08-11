@@ -314,6 +314,7 @@ legend.exit().remove();
     for (let i = 0; i<b.length; i++){
         b[i]['hour'] = (b[i]['hour'] - 1);
     }
+    
    heatmapChart(myArrayOfObjects);
  });
 
