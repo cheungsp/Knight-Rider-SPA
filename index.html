@@ -28,12 +28,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" onclick="removeLine()" href="#">Knight Rider</a>
+          <!-- <a class="navbar-brand" onclick="removeLine()" href="#">Knight Rider</a> -->
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-2">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Neighbourhood Query</a></li>
             <li><a href="#" id="red-light-camera-button">Red Light Cameras</a></li>
             <li><a href="#" class="delete-markers" onclick="deleteMarkers()">Delete Markers</a></li>
             <li><a href="#" class="heat-button" data-toggle="modal" data-target="#heatMap" >Time Chart</a></li>
@@ -96,6 +97,7 @@
 
           <div class="collapse nav navbar-nav nav-collapse" id="nav-collapse2">
             <ul class="nav navbar-nav navbar-left">
+              <li><a href="#">Route-Danger Mode</a></li>
               <li class="form-group"><input class="form-control" id="origin-input" placeholder="Origin" autofocus/></li>
               <li class="form-group"><input class="form-control" id="destination-input" placeholder="Destination"/></li>
               <li><a href="#" id="router">Route Info</a></li>
@@ -108,13 +110,13 @@
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 
-  <div id="loader-wrapper">
+  <!-- <div id="loader-wrapper">
     <div class="loading-container">
       <div class="spinner"></div>
         <div class="spinner-center"></div>
           <div class="loading-text">Loading...</div>
         </div>
-  </div>
+  </div> -->
 
     <div container="container">
       <div class="row">
@@ -122,8 +124,8 @@
           <p class="info-bar">Clicking the 🚔  &nbsp button will toggle between modes <br>
             <h3>Neighbourhood Query Mode</h3>
             <ul class='info-bar'>
-              <li>Select a neighbourhood or all to query from <br> (Querying from all will take some time to load markers)</li>
               <li>Select one or more crimes to display</li>
+              <li>Select a neighbourhood or all to query from <br> (Querying from all will take some time to load markers)</li>
               <li>Drag month selector to choose time frame</li>
               <li>Press Show Crimes to display markers on map</li>
               <li>Press Time Chart to get visual representation of when the crimes happen </li>

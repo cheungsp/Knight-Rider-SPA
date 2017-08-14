@@ -6,12 +6,13 @@ html {
 /*nav bar*/
 
 .navbar-brand {
-  position: relative;
+  /*position: relative;*/
   z-index: 2;
   font-size: 25px;
   font-family: Arial;
-  right: 10px;
-  /*float:left;*/
+  text-align: left;
+  /*right: 10px;*/
+  float:left;
   /*margin-left: -100px !important;*/
 }
 

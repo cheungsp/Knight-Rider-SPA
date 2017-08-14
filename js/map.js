@@ -455,7 +455,7 @@ $(document).ready(function(){
       removeLine();
     });
     //  DO NOT DELETE | loading screen
-    $('#loader-wrapper').delay(5000).fadeOut('slow');
+    // $('#loader-wrapper').delay(5000).fadeOut('slow');
 
  });
 
