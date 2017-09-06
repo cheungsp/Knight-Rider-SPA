@@ -346,7 +346,8 @@ $(document).ready(function(){
    });
 
    $('#crime-button').click(function(){
-    deleteMarkers();
+    removeLine();
+    // deleteMarkers();
     let area;
     let tempFilter;
     let hold = [];
@@ -417,6 +418,7 @@ $(document).ready(function(){
       addMarker(single);
     }
     map.setCenter(neighbourhoods[area]);
+
     markerCluster = new MarkerClusterer(map, markers, opt);
    });
 
@@ -455,7 +457,7 @@ $(document).ready(function(){
       removeLine();
     });
     //  DO NOT DELETE | loading screen
-    // $('#loader-wrapper').delay(5000).fadeOut('slow');
+    $('#loader-wrapper').delay(7000).fadeOut('slow');
 
  });
 
